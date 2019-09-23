@@ -41,12 +41,6 @@
         address, remark, is_enabled, is_deleted, create_time, update_time
     </sql>
 
-    <sql id="EagerLoadRoles_Column_List">
-        <!--@mbg.generated-->
-        user_id, real_name, username, password, profile_picture, mobile_phone, telephone,
-        address, remark, is_enabled, is_deleted, create_time, update_time, role_id, role_name, chinese_name
-    </sql>
-
     <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
         <!--@mbg.generated-->
         select
@@ -216,7 +210,7 @@
         where user_id = #{userId,jdbcType=BIGINT}
     </update>
 
-    <select id="getUserByUsername" parameterType="string" resultMap="BaseResultMap">
+    <select id="getUserByUsername" parameterType="string" resultMap="lazyLoadRoles">
         select
         <include refid="Base_Column_List"/>
         from user
