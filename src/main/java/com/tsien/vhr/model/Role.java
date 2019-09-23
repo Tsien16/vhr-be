@@ -1,7 +1,16 @@
 package com.tsien.vhr.model;
 
-import java.time.LocalDateTime;
 import lombok.Data;
+
+import java.time.LocalDateTime;
+
+/**
+ * Created with IntelliJ IDEA.
+ *
+ * @author tsien
+ * @version 1.0.0
+ * @date 2019/9/9 0009 12:35
+ */
 
 @Data
 public class Role {
@@ -23,7 +32,7 @@ public class Role {
     /**
     * 是否逻辑删除，1-表示删除，0-表示未删除
     */
-    private Boolean isDeleted;
+    private Boolean deleted;
 
     /**
     * 创建时间

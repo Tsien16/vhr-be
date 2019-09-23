@@ -14,7 +14,7 @@ pagehelper:
 
 logging:
   level:
-    com.tsien.mall: debug
+    com.tsien.vhr: debug
   path: ./logs
 
 spring:

@@ -18,11 +18,35 @@
         <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
         <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
     </resultMap>
+
+    <!-- 懒加载用户权限 -->
+    <resultMap id="lazyLoadRoles" type="com.tsien.vhr.model.User" extends="BaseResultMap">
+        <collection property="roles" ofType="com.tsien.vhr.model.Role"
+                    select="com.tsien.vhr.dao.RoleDAO.listRolesByUserId"
+                    column="user_id">
+        </collection>
+    </resultMap>
+
+    <resultMap id="eagerLoadRoles" type="com.tsien.vhr.model.User" extends="BaseResultMap">
+        <collection property="roles" ofType="com.tsien.vhr.model.Role">
+            <id property="roleId" column="role_id"/>
+            <result property="roleName" column="role_name"/>
+            <result property="chineseName" column="chinese_name"/>
+        </collection>
+    </resultMap>
+
     <sql id="Base_Column_List">
         <!--@mbg.generated-->
         user_id, real_name, username, password, profile_picture, mobile_phone, telephone,
         address, remark, is_enabled, is_deleted, create_time, update_time
     </sql>
+
+    <sql id="EagerLoadRoles_Column_List">
+        <!--@mbg.generated-->
+        user_id, real_name, username, password, profile_picture, mobile_phone, telephone,
+        address, remark, is_enabled, is_deleted, create_time, update_time, role_id, role_name, chinese_name
+    </sql>
+
     <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
         <!--@mbg.generated-->
         select
@@ -30,6 +54,7 @@
         from user
         where user_id = #{userId,jdbcType=BIGINT}
     </select>
+
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
         <!--@mbg.generated-->
         delete from user
