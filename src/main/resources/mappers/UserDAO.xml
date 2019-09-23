@@ -27,14 +27,6 @@
         </collection>
     </resultMap>
 
-    <resultMap id="eagerLoadRoles" type="com.tsien.vhr.model.User" extends="BaseResultMap">
-        <collection property="roles" ofType="com.tsien.vhr.model.Role">
-            <id property="roleId" column="role_id"/>
-            <result property="roleName" column="role_name"/>
-            <result property="chineseName" column="chinese_name"/>
-        </collection>
-    </resultMap>
-
     <sql id="Base_Column_List">
         <!--@mbg.generated-->
         user_id, real_name, username, password, profile_picture, mobile_phone, telephone,
