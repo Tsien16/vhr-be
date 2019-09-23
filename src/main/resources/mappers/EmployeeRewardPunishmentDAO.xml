@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tsien.vhr.dao.EmployeeRewardPunishmentDAO">
+  <resultMap id="BaseResultMap" type="com.tsien.vhr.model.EmployeeRewardPunishment">
+    <!--@mbg.generated-->
+    <!--@Table employee_reward_punishment-->
+    <id column="rp_id" jdbcType="BIGINT" property="rpId" />
+    <result column="employee_id" jdbcType="BIGINT" property="employeeId" />
+    <result column="rp_date" jdbcType="DATE" property="rpDate" />
+    <result column="rp_reason" jdbcType="VARCHAR" property="rpReason" />
+    <result column="rp_point" jdbcType="INTEGER" property="rpPoint" />
+    <result column="rp_type" jdbcType="BOOLEAN" property="rpType" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="is_deleted" jdbcType="BOOLEAN" property="isDeleted" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    rp_id, employee_id, rp_date, rp_reason, rp_point, rp_type, remark, is_deleted, create_time, 
+    update_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from employee_reward_punishment
+    where rp_id = #{rpId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    <!--@mbg.generated-->
+    delete from employee_reward_punishment
+    where rp_id = #{rpId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="rp_id" keyProperty="rpId" parameterType="com.tsien.vhr.model.EmployeeRewardPunishment" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into employee_reward_punishment (employee_id, rp_date, rp_reason, 
+      rp_point, rp_type, remark, 
+      is_deleted, create_time, update_time
+      )
+    values (#{employeeId,jdbcType=BIGINT}, #{rpDate,jdbcType=DATE}, #{rpReason,jdbcType=VARCHAR}, 
+      #{rpPoint,jdbcType=INTEGER}, #{rpType,jdbcType=BOOLEAN}, #{remark,jdbcType=VARCHAR}, 
+      #{isDeleted,jdbcType=BOOLEAN}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="rp_id" keyProperty="rpId" parameterType="com.tsien.vhr.model.EmployeeRewardPunishment" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into employee_reward_punishment
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="employeeId != null">
+        employee_id,
+      </if>
+      <if test="rpDate != null">
+        rp_date,
+      </if>
+      <if test="rpReason != null and rpReason != ''">
+        rp_reason,
+      </if>
+      <if test="rpPoint != null">
+        rp_point,
+      </if>
+      <if test="rpType != null">
+        rp_type,
+      </if>
+      <if test="remark != null and remark != ''">
+        remark,
+      </if>
+      <if test="isDeleted != null">
+        is_deleted,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="employeeId != null">
+        #{employeeId,jdbcType=BIGINT},
+      </if>
+      <if test="rpDate != null">
+        #{rpDate,jdbcType=DATE},
+      </if>
+      <if test="rpReason != null and rpReason != ''">
+        #{rpReason,jdbcType=VARCHAR},
+      </if>
+      <if test="rpPoint != null">
+        #{rpPoint,jdbcType=INTEGER},
+      </if>
+      <if test="rpType != null">
+        #{rpType,jdbcType=BOOLEAN},
+      </if>
+      <if test="remark != null and remark != ''">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="isDeleted != null">
+        #{isDeleted,jdbcType=BOOLEAN},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tsien.vhr.model.EmployeeRewardPunishment">
+    <!--@mbg.generated-->
+    update employee_reward_punishment
+    <set>
+      <if test="employeeId != null">
+        employee_id = #{employeeId,jdbcType=BIGINT},
+      </if>
+      <if test="rpDate != null">
+        rp_date = #{rpDate,jdbcType=DATE},
+      </if>
+      <if test="rpReason != null and rpReason != ''">
+        rp_reason = #{rpReason,jdbcType=VARCHAR},
+      </if>
+      <if test="rpPoint != null">
+        rp_point = #{rpPoint,jdbcType=INTEGER},
+      </if>
+      <if test="rpType != null">
+        rp_type = #{rpType,jdbcType=BOOLEAN},
+      </if>
+      <if test="remark != null and remark != ''">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="isDeleted != null">
+        is_deleted = #{isDeleted,jdbcType=BOOLEAN},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where rp_id = #{rpId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tsien.vhr.model.EmployeeRewardPunishment">
+    <!--@mbg.generated-->
+    update employee_reward_punishment
+    set employee_id = #{employeeId,jdbcType=BIGINT},
+      rp_date = #{rpDate,jdbcType=DATE},
+      rp_reason = #{rpReason,jdbcType=VARCHAR},
+      rp_point = #{rpPoint,jdbcType=INTEGER},
+      rp_type = #{rpType,jdbcType=BOOLEAN},
+      remark = #{remark,jdbcType=VARCHAR},
+      is_deleted = #{isDeleted,jdbcType=BOOLEAN},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where rp_id = #{rpId,jdbcType=BIGINT}
+  </update>
+</mapper>

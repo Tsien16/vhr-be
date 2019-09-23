@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tsien.vhr.dao.EmployeeTransferDAO">
+  <resultMap id="BaseResultMap" type="com.tsien.vhr.model.EmployeeTransfer">
+    <!--@mbg.generated-->
+    <!--@Table employee_transfer-->
+    <id column="transfer_id" jdbcType="BIGINT" property="transferId" />
+    <result column="employee_id" jdbcType="BIGINT" property="employeeId" />
+    <result column="department_id_before" jdbcType="BIGINT" property="departmentIdBefore" />
+    <result column="department_id_after" jdbcType="BIGINT" property="departmentIdAfter" />
+    <result column="position_id_before" jdbcType="BIGINT" property="positionIdBefore" />
+    <result column="position_id_after" jdbcType="BIGINT" property="positionIdAfter" />
+    <result column="transfer_date" jdbcType="DATE" property="transferDate" />
+    <result column="reason" jdbcType="VARCHAR" property="reason" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="is_deleted" jdbcType="BOOLEAN" property="isDeleted" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    transfer_id, employee_id, department_id_before, department_id_after, position_id_before, 
+    position_id_after, transfer_date, reason, remark, is_deleted, create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from employee_transfer
+    where transfer_id = #{transferId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    <!--@mbg.generated-->
+    delete from employee_transfer
+    where transfer_id = #{transferId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="transfer_id" keyProperty="transferId" parameterType="com.tsien.vhr.model.EmployeeTransfer" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into employee_transfer (employee_id, department_id_before, department_id_after, 
+      position_id_before, position_id_after, transfer_date, 
+      reason, remark, is_deleted, 
+      create_time, update_time)
+    values (#{employeeId,jdbcType=BIGINT}, #{departmentIdBefore,jdbcType=BIGINT}, #{departmentIdAfter,jdbcType=BIGINT}, 
+      #{positionIdBefore,jdbcType=BIGINT}, #{positionIdAfter,jdbcType=BIGINT}, #{transferDate,jdbcType=DATE}, 
+      #{reason,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{isDeleted,jdbcType=BOOLEAN}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" keyColumn="transfer_id" keyProperty="transferId" parameterType="com.tsien.vhr.model.EmployeeTransfer" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into employee_transfer
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="employeeId != null">
+        employee_id,
+      </if>
+      <if test="departmentIdBefore != null">
+        department_id_before,
+      </if>
+      <if test="departmentIdAfter != null">
+        department_id_after,
+      </if>
+      <if test="positionIdBefore != null">
+        position_id_before,
+      </if>
+      <if test="positionIdAfter != null">
+        position_id_after,
+      </if>
+      <if test="transferDate != null">
+        transfer_date,
+      </if>
+      <if test="reason != null and reason != ''">
+        reason,
+      </if>
+      <if test="remark != null and remark != ''">
+        remark,
+      </if>
+      <if test="isDeleted != null">
+        is_deleted,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="employeeId != null">
+        #{employeeId,jdbcType=BIGINT},
+      </if>
+      <if test="departmentIdBefore != null">
+        #{departmentIdBefore,jdbcType=BIGINT},
+      </if>
+      <if test="departmentIdAfter != null">
+        #{departmentIdAfter,jdbcType=BIGINT},
+      </if>
+      <if test="positionIdBefore != null">
+        #{positionIdBefore,jdbcType=BIGINT},
+      </if>
+      <if test="positionIdAfter != null">
+        #{positionIdAfter,jdbcType=BIGINT},
+      </if>
+      <if test="transferDate != null">
+        #{transferDate,jdbcType=DATE},
+      </if>
+      <if test="reason != null and reason != ''">
+        #{reason,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null and remark != ''">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="isDeleted != null">
+        #{isDeleted,jdbcType=BOOLEAN},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tsien.vhr.model.EmployeeTransfer">
+    <!--@mbg.generated-->
+    update employee_transfer
+    <set>
+      <if test="employeeId != null">
+        employee_id = #{employeeId,jdbcType=BIGINT},
+      </if>
+      <if test="departmentIdBefore != null">
+        department_id_before = #{departmentIdBefore,jdbcType=BIGINT},
+      </if>
+      <if test="departmentIdAfter != null">
+        department_id_after = #{departmentIdAfter,jdbcType=BIGINT},
+      </if>
+      <if test="positionIdBefore != null">
+        position_id_before = #{positionIdBefore,jdbcType=BIGINT},
+      </if>
+      <if test="positionIdAfter != null">
+        position_id_after = #{positionIdAfter,jdbcType=BIGINT},
+      </if>
+      <if test="transferDate != null">
+        transfer_date = #{transferDate,jdbcType=DATE},
+      </if>
+      <if test="reason != null and reason != ''">
+        reason = #{reason,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null and remark != ''">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="isDeleted != null">
+        is_deleted = #{isDeleted,jdbcType=BOOLEAN},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where transfer_id = #{transferId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tsien.vhr.model.EmployeeTransfer">
+    <!--@mbg.generated-->
+    update employee_transfer
+    set employee_id = #{employeeId,jdbcType=BIGINT},
+      department_id_before = #{departmentIdBefore,jdbcType=BIGINT},
+      department_id_after = #{departmentIdAfter,jdbcType=BIGINT},
+      position_id_before = #{positionIdBefore,jdbcType=BIGINT},
+      position_id_after = #{positionIdAfter,jdbcType=BIGINT},
+      transfer_date = #{transferDate,jdbcType=DATE},
+      reason = #{reason,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      is_deleted = #{isDeleted,jdbcType=BOOLEAN},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where transfer_id = #{transferId,jdbcType=BIGINT}
+  </update>
+</mapper>

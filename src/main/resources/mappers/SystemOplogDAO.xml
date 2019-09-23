@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tsien.vhr.dao.SystemOplogDAO">
+  <resultMap id="BaseResultMap" type="com.tsien.vhr.model.SystemOplog">
+    <!--@mbg.generated-->
+    <!--@Table system_oplog-->
+    <id column="oplog_id" jdbcType="BIGINT" property="oplogId" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="operation_content" jdbcType="VARCHAR" property="operationContent" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    oplog_id, user_id, operation_content, create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from system_oplog
+    where oplog_id = #{oplogId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    <!--@mbg.generated-->
+    delete from system_oplog
+    where oplog_id = #{oplogId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="oplog_id" keyProperty="oplogId" parameterType="com.tsien.vhr.model.SystemOplog" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into system_oplog (user_id, operation_content, create_time, 
+      update_time)
+    values (#{userId,jdbcType=BIGINT}, #{operationContent,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" keyColumn="oplog_id" keyProperty="oplogId" parameterType="com.tsien.vhr.model.SystemOplog" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into system_oplog
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="operationContent != null and operationContent != ''">
+        operation_content,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="operationContent != null and operationContent != ''">
+        #{operationContent,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tsien.vhr.model.SystemOplog">
+    <!--@mbg.generated-->
+    update system_oplog
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="operationContent != null and operationContent != ''">
+        operation_content = #{operationContent,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where oplog_id = #{oplogId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tsien.vhr.model.SystemOplog">
+    <!--@mbg.generated-->
+    update system_oplog
+    set user_id = #{userId,jdbcType=BIGINT},
+      operation_content = #{operationContent,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where oplog_id = #{oplogId,jdbcType=BIGINT}
+  </update>
+</mapper>

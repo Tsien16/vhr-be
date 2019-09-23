@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tsien.vhr.dao.SalaryAdjustmentDAO">
+  <resultMap id="BaseResultMap" type="com.tsien.vhr.model.SalaryAdjustment">
+    <!--@mbg.generated-->
+    <!--@Table salary_adjustment-->
+    <id column="adjustment_id" jdbcType="BIGINT" property="adjustmentId" />
+    <result column="employee_id" jdbcType="BIGINT" property="employeeId" />
+    <result column="adjustment_date" jdbcType="DATE" property="adjustmentDate" />
+    <result column="salary_id_before" jdbcType="BIGINT" property="salaryIdBefore" />
+    <result column="salary_id_after" jdbcType="BIGINT" property="salaryIdAfter" />
+    <result column="reason" jdbcType="VARCHAR" property="reason" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="is_deleted" jdbcType="BOOLEAN" property="isDeleted" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    adjustment_id, employee_id, adjustment_date, salary_id_before, salary_id_after, reason, 
+    remark, is_deleted, create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from salary_adjustment
+    where adjustment_id = #{adjustmentId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    <!--@mbg.generated-->
+    delete from salary_adjustment
+    where adjustment_id = #{adjustmentId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="adjustment_id" keyProperty="adjustmentId" parameterType="com.tsien.vhr.model.SalaryAdjustment" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into salary_adjustment (employee_id, adjustment_date, salary_id_before, 
+      salary_id_after, reason, remark, 
+      is_deleted, create_time, update_time
+      )
+    values (#{employeeId,jdbcType=BIGINT}, #{adjustmentDate,jdbcType=DATE}, #{salaryIdBefore,jdbcType=BIGINT}, 
+      #{salaryIdAfter,jdbcType=BIGINT}, #{reason,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
+      #{isDeleted,jdbcType=BOOLEAN}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="adjustment_id" keyProperty="adjustmentId" parameterType="com.tsien.vhr.model.SalaryAdjustment" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into salary_adjustment
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="employeeId != null">
+        employee_id,
+      </if>
+      <if test="adjustmentDate != null">
+        adjustment_date,
+      </if>
+      <if test="salaryIdBefore != null">
+        salary_id_before,
+      </if>
+      <if test="salaryIdAfter != null">
+        salary_id_after,
+      </if>
+      <if test="reason != null and reason != ''">
+        reason,
+      </if>
+      <if test="remark != null and remark != ''">
+        remark,
+      </if>
+      <if test="isDeleted != null">
+        is_deleted,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="employeeId != null">
+        #{employeeId,jdbcType=BIGINT},
+      </if>
+      <if test="adjustmentDate != null">
+        #{adjustmentDate,jdbcType=DATE},
+      </if>
+      <if test="salaryIdBefore != null">
+        #{salaryIdBefore,jdbcType=BIGINT},
+      </if>
+      <if test="salaryIdAfter != null">
+        #{salaryIdAfter,jdbcType=BIGINT},
+      </if>
+      <if test="reason != null and reason != ''">
+        #{reason,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null and remark != ''">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="isDeleted != null">
+        #{isDeleted,jdbcType=BOOLEAN},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tsien.vhr.model.SalaryAdjustment">
+    <!--@mbg.generated-->
+    update salary_adjustment
+    <set>
+      <if test="employeeId != null">
+        employee_id = #{employeeId,jdbcType=BIGINT},
+      </if>
+      <if test="adjustmentDate != null">
+        adjustment_date = #{adjustmentDate,jdbcType=DATE},
+      </if>
+      <if test="salaryIdBefore != null">
+        salary_id_before = #{salaryIdBefore,jdbcType=BIGINT},
+      </if>
+      <if test="salaryIdAfter != null">
+        salary_id_after = #{salaryIdAfter,jdbcType=BIGINT},
+      </if>
+      <if test="reason != null and reason != ''">
+        reason = #{reason,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null and remark != ''">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="isDeleted != null">
+        is_deleted = #{isDeleted,jdbcType=BOOLEAN},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where adjustment_id = #{adjustmentId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tsien.vhr.model.SalaryAdjustment">
+    <!--@mbg.generated-->
+    update salary_adjustment
+    set employee_id = #{employeeId,jdbcType=BIGINT},
+      adjustment_date = #{adjustmentDate,jdbcType=DATE},
+      salary_id_before = #{salaryIdBefore,jdbcType=BIGINT},
+      salary_id_after = #{salaryIdAfter,jdbcType=BIGINT},
+      reason = #{reason,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      is_deleted = #{isDeleted,jdbcType=BOOLEAN},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where adjustment_id = #{adjustmentId,jdbcType=BIGINT}
+  </update>
+</mapper>

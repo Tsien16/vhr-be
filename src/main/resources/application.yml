@@ -1,8 +1,6 @@
-# \u901A\u7528\u914D\u7F6E
 server:
   port: 8000
 
-# \u5176\u5B83\u914D\u7F6E
 mybatis:
   mapper-locations: classpath:mappers/*.xml
   configuration:
@@ -32,9 +30,9 @@ spring:
       username: root
       password: 16601130186
   jackson:
-    default-property-inclusion: non_null # \u5E8F\u5217\u5316\u65F6\u5019\uFF0C\u5B57\u6BB5\u4E3A\u7A7A\u65F6\u5019\uFF0Ckey\u4E0D\u663E\u793A
+    default-property-inclusion: non_null
   servlet:
-    multipart: # \u6587\u4EF6\u4E0A\u4F20\u914D\u7F6E
+    multipart:
       enabled: true
       max-file-size: 4MB
       max-request-size: 10MB

@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tsien.vhr.dao.SalaryDAO">
+  <resultMap id="BaseResultMap" type="com.tsien.vhr.model.Salary">
+    <!--@mbg.generated-->
+    <!--@Table salary-->
+    <id column="salary_id" jdbcType="BIGINT" property="salaryId" />
+    <result column="salary_basic" jdbcType="INTEGER" property="salaryBasic" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="bonus" jdbcType="INTEGER" property="bonus" />
+    <result column="travel_allowance" jdbcType="INTEGER" property="travelAllowance" />
+    <result column="lunch_allowance" jdbcType="INTEGER" property="lunchAllowance" />
+    <result column="salary_payable" jdbcType="INTEGER" property="salaryPayable" />
+    <result column="pension_base" jdbcType="INTEGER" property="pensionBase" />
+    <result column="pension_per" jdbcType="FLOAT" property="pensionPer" />
+    <result column="medical_base" jdbcType="INTEGER" property="medicalBase" />
+    <result column="medical_per" jdbcType="FLOAT" property="medicalPer" />
+    <result column="accumulation_fund_base" jdbcType="INTEGER" property="accumulationFundBase" />
+    <result column="accumulation_fund_per" jdbcType="FLOAT" property="accumulationFundPer" />
+    <result column="is_deleted" jdbcType="BOOLEAN" property="isDeleted" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    salary_id, salary_basic, `name`, bonus, travel_allowance, lunch_allowance, salary_payable, 
+    pension_base, pension_per, medical_base, medical_per, accumulation_fund_base, accumulation_fund_per, 
+    is_deleted, create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from salary
+    where salary_id = #{salaryId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    <!--@mbg.generated-->
+    delete from salary
+    where salary_id = #{salaryId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="salary_id" keyProperty="salaryId" parameterType="com.tsien.vhr.model.Salary" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into salary (salary_basic, `name`, bonus, 
+      travel_allowance, lunch_allowance, salary_payable, 
+      pension_base, pension_per, medical_base, 
+      medical_per, accumulation_fund_base, accumulation_fund_per, 
+      is_deleted, create_time, update_time
+      )
+    values (#{salaryBasic,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{bonus,jdbcType=INTEGER}, 
+      #{travelAllowance,jdbcType=INTEGER}, #{lunchAllowance,jdbcType=INTEGER}, #{salaryPayable,jdbcType=INTEGER}, 
+      #{pensionBase,jdbcType=INTEGER}, #{pensionPer,jdbcType=FLOAT}, #{medicalBase,jdbcType=INTEGER}, 
+      #{medicalPer,jdbcType=FLOAT}, #{accumulationFundBase,jdbcType=INTEGER}, #{accumulationFundPer,jdbcType=FLOAT}, 
+      #{isDeleted,jdbcType=BOOLEAN}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="salary_id" keyProperty="salaryId" parameterType="com.tsien.vhr.model.Salary" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into salary
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="salaryBasic != null">
+        salary_basic,
+      </if>
+      <if test="name != null and name != ''">
+        `name`,
+      </if>
+      <if test="bonus != null">
+        bonus,
+      </if>
+      <if test="travelAllowance != null">
+        travel_allowance,
+      </if>
+      <if test="lunchAllowance != null">
+        lunch_allowance,
+      </if>
+      <if test="salaryPayable != null">
+        salary_payable,
+      </if>
+      <if test="pensionBase != null">
+        pension_base,
+      </if>
+      <if test="pensionPer != null">
+        pension_per,
+      </if>
+      <if test="medicalBase != null">
+        medical_base,
+      </if>
+      <if test="medicalPer != null">
+        medical_per,
+      </if>
+      <if test="accumulationFundBase != null">
+        accumulation_fund_base,
+      </if>
+      <if test="accumulationFundPer != null">
+        accumulation_fund_per,
+      </if>
+      <if test="isDeleted != null">
+        is_deleted,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="salaryBasic != null">
+        #{salaryBasic,jdbcType=INTEGER},
+      </if>
+      <if test="name != null and name != ''">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="bonus != null">
+        #{bonus,jdbcType=INTEGER},
+      </if>
+      <if test="travelAllowance != null">
+        #{travelAllowance,jdbcType=INTEGER},
+      </if>
+      <if test="lunchAllowance != null">
+        #{lunchAllowance,jdbcType=INTEGER},
+      </if>
+      <if test="salaryPayable != null">
+        #{salaryPayable,jdbcType=INTEGER},
+      </if>
+      <if test="pensionBase != null">
+        #{pensionBase,jdbcType=INTEGER},
+      </if>
+      <if test="pensionPer != null">
+        #{pensionPer,jdbcType=FLOAT},
+      </if>
+      <if test="medicalBase != null">
+        #{medicalBase,jdbcType=INTEGER},
+      </if>
+      <if test="medicalPer != null">
+        #{medicalPer,jdbcType=FLOAT},
+      </if>
+      <if test="accumulationFundBase != null">
+        #{accumulationFundBase,jdbcType=INTEGER},
+      </if>
+      <if test="accumulationFundPer != null">
+        #{accumulationFundPer,jdbcType=FLOAT},
+      </if>
+      <if test="isDeleted != null">
+        #{isDeleted,jdbcType=BOOLEAN},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tsien.vhr.model.Salary">
+    <!--@mbg.generated-->
+    update salary
+    <set>
+      <if test="salaryBasic != null">
+        salary_basic = #{salaryBasic,jdbcType=INTEGER},
+      </if>
+      <if test="name != null and name != ''">
+        `name` = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="bonus != null">
+        bonus = #{bonus,jdbcType=INTEGER},
+      </if>
+      <if test="travelAllowance != null">
+        travel_allowance = #{travelAllowance,jdbcType=INTEGER},
+      </if>
+      <if test="lunchAllowance != null">
+        lunch_allowance = #{lunchAllowance,jdbcType=INTEGER},
+      </if>
+      <if test="salaryPayable != null">
+        salary_payable = #{salaryPayable,jdbcType=INTEGER},
+      </if>
+      <if test="pensionBase != null">
+        pension_base = #{pensionBase,jdbcType=INTEGER},
+      </if>
+      <if test="pensionPer != null">
+        pension_per = #{pensionPer,jdbcType=FLOAT},
+      </if>
+      <if test="medicalBase != null">
+        medical_base = #{medicalBase,jdbcType=INTEGER},
+      </if>
+      <if test="medicalPer != null">
+        medical_per = #{medicalPer,jdbcType=FLOAT},
+      </if>
+      <if test="accumulationFundBase != null">
+        accumulation_fund_base = #{accumulationFundBase,jdbcType=INTEGER},
+      </if>
+      <if test="accumulationFundPer != null">
+        accumulation_fund_per = #{accumulationFundPer,jdbcType=FLOAT},
+      </if>
+      <if test="isDeleted != null">
+        is_deleted = #{isDeleted,jdbcType=BOOLEAN},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where salary_id = #{salaryId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tsien.vhr.model.Salary">
+    <!--@mbg.generated-->
+    update salary
+    set salary_basic = #{salaryBasic,jdbcType=INTEGER},
+      `name` = #{name,jdbcType=VARCHAR},
+      bonus = #{bonus,jdbcType=INTEGER},
+      travel_allowance = #{travelAllowance,jdbcType=INTEGER},
+      lunch_allowance = #{lunchAllowance,jdbcType=INTEGER},
+      salary_payable = #{salaryPayable,jdbcType=INTEGER},
+      pension_base = #{pensionBase,jdbcType=INTEGER},
+      pension_per = #{pensionPer,jdbcType=FLOAT},
+      medical_base = #{medicalBase,jdbcType=INTEGER},
+      medical_per = #{medicalPer,jdbcType=FLOAT},
+      accumulation_fund_base = #{accumulationFundBase,jdbcType=INTEGER},
+      accumulation_fund_per = #{accumulationFundPer,jdbcType=FLOAT},
+      is_deleted = #{isDeleted,jdbcType=BOOLEAN},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where salary_id = #{salaryId,jdbcType=BIGINT}
+  </update>
+</mapper>
