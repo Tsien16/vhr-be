@@ -13,36 +13,30 @@ public enum ResponseCodeEnum {
     /**
      * 0=成功
      */
-    SUCCESS(0, "SUCCESS"),
+    SUCCESS("success"),
 
     /**
      * 1=错误
      */
-    ERROR(1, "ERROR"),
+    ERROR("error"),
 
     /**
      * 2=参数错误
      */
-    ILLEGAL_ARGUMENT(2, "ILLEGAL_ARGUMENT"),
+    ILLEGAL_ARGUMENT("ILLEGAL_ARGUMENT"),
 
     /**
      * 10=需要登陆
      */
-    NEED_LOGIN(10, "NEED_LOGIN");
+    NEED_LOGIN("NEED_LOGIN");
 
-    private final int code;
-    private final String desc;
+    private final String status;
 
-    ResponseCodeEnum(int code, String desc) {
-        this.code = code;
-        this.desc = desc;
+    ResponseCodeEnum(String status) {
+        this.status = status;
     }
 
-    public int getCode() {
-        return code;
-    }
-
-    public String getDesc() {
-        return desc;
+    public String getStatus() {
+        return status;
     }
 }

@@ -107,7 +107,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 PrintWriter printWriter = response.getWriter();
                 ObjectMapper objectMapper = new ObjectMapper();
                 String string =
-                        "{\"status\":\"success\",\"msg\":" + objectMapper.writeValueAsString(UserUtil.getCurrentUser()) + "}";
+                        "{\"status\":\"success\",\"msg\":" + objectMapper.writeValueAsString(UserUtil
+                                .getCurrentUser()) + "}";
                 printWriter.write(string);
                 printWriter.flush();
                 printWriter.close();

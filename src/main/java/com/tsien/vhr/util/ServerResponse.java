@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.tsien.vhr.constant.ResponseCodeEnum;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * Created with IntelliJ IDEA.
@@ -19,25 +20,25 @@ import java.io.Serializable;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ServerResponse<T> implements Serializable {
 
-    private int status;
+    private String status;
     private String msg;
     private T data;
 
-    private ServerResponse(int status) {
+    private ServerResponse(String status) {
         this.status = status;
     }
 
-    private ServerResponse(int status, T data) {
+    private ServerResponse(String status, T data) {
         this.status = status;
         this.data = data;
     }
 
-    private ServerResponse(int status, String msg) {
+    private ServerResponse(String status, String msg) {
         this.status = status;
         this.msg = msg;
     }
 
-    private ServerResponse(int status, String msg, T data) {
+    private ServerResponse(String status, String msg, T data) {
         this.status = status;
         this.msg = msg;
         this.data = data;
@@ -45,10 +46,10 @@ public class ServerResponse<T> implements Serializable {
 
     @JsonIgnore
     public boolean isSuccess() {
-        return this.status == ResponseCodeEnum.SUCCESS.getCode();
+        return Objects.equals(this.status, ResponseCodeEnum.SUCCESS.getStatus());
     }
 
-    public int getStatus() {
+    public String getStatus() {
         return status;
     }
 
@@ -61,30 +62,27 @@ public class ServerResponse<T> implements Serializable {
     }
 
     public static <T> ServerResponse<T> createBySuccess() {
-        return new ServerResponse<>(ResponseCodeEnum.SUCCESS.getCode());
+        return new ServerResponse<>(ResponseCodeEnum.SUCCESS.getStatus());
     }
 
     public static <T> ServerResponse<T> createBySuccess(T data) {
-        return new ServerResponse<>(ResponseCodeEnum.SUCCESS.getCode(), data);
+        return new ServerResponse<>(ResponseCodeEnum.SUCCESS.getStatus(), data);
     }
 
     public static <T> ServerResponse<T> createBySuccess(String msg, T data) {
-        return new ServerResponse<>(ResponseCodeEnum.SUCCESS.getCode(), msg, data);
+        return new ServerResponse<>(ResponseCodeEnum.SUCCESS.getStatus(), msg, data);
     }
 
     public static <T> ServerResponse<T> createBySuccessMessage(String msg) {
-        return new ServerResponse<>(ResponseCodeEnum.SUCCESS.getCode(), msg);
-    }
-
-    public static <T> ServerResponse<T> createByError() {
-        return new ServerResponse<>(ResponseCodeEnum.ERROR.getCode(), ResponseCodeEnum.ERROR.getDesc());
+        return new ServerResponse<>(ResponseCodeEnum.SUCCESS.getStatus(), msg);
     }
 
     public static <T> ServerResponse<T> createByErrorMessage(String errorMsg) {
-        return new ServerResponse<>(ResponseCodeEnum.ERROR.getCode(), errorMsg);
+        return new ServerResponse<>(ResponseCodeEnum.ERROR.getStatus(), errorMsg);
     }
 
-    public static <T> ServerResponse<T> createByErrorCodeMessage(int errorCode, String errorMsg) {
-        return new ServerResponse<>(errorCode, errorMsg);
+    public static <T> ServerResponse<T> createByErrorCodeMessage(String errorStatus, String errorMsg) {
+        return new ServerResponse<>(errorStatus, errorMsg);
     }
+
 }
