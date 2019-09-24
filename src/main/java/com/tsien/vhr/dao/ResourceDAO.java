@@ -4,6 +4,14 @@ import com.tsien.vhr.model.Resource;
 
 import java.util.List;
 
+/**
+ * Created with IntelliJ IDEA.
+ *
+ * @author tsien
+ * @version 1.0.0
+ * @date 2019/9/24 0024 9:41
+ */
+
 public interface ResourceDAO {
 
     int deleteByPrimaryKey(Long resourceId);
