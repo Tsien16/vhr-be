@@ -13,6 +13,11 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 public class UserUtil {
 
+    /**
+     * 通过SecurityContextHolder获取到用户信息
+     *
+     * @return User
+     */
     public static User getCurrentUser() {
         return (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     }
