@@ -2,6 +2,8 @@ package com.tsien.vhr.dao;
 
 import com.tsien.vhr.model.ResourceRoleRelation;
 
+import java.util.List;
+
 /**
  * Created with IntelliJ IDEA.
  *
@@ -11,6 +13,7 @@ import com.tsien.vhr.model.ResourceRoleRelation;
  */
 
 public interface ResourceRoleRelationDAO {
+
     int deleteByPrimaryKey(Long id);
 
     int insert(ResourceRoleRelation record);
@@ -22,4 +25,12 @@ public interface ResourceRoleRelationDAO {
     int updateByPrimaryKeySelective(ResourceRoleRelation record);
 
     int updateByPrimaryKey(ResourceRoleRelation record);
+
+    /**
+     * 通过权限ID查询资源ID
+     *
+     * @param roleId roleId
+     * @return resources
+     */
+    List<Long> listResourceIdsByRoleId(Long roleId);
 }

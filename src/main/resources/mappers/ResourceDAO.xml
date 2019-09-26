@@ -24,13 +24,27 @@
         </collection>
     </resultMap>
 
-    <!-- 递归查询 -->
-    <resultMap id="EagerLoad_ResultMap" type="com.tsien.vhr.model.Resource" extends="BaseResultMap">
-        <collection property="subordinateResources" ofType="com.tsien.vhr.model.Resource"
-                    select="listResourcesByParentId"
-                    column="resource_id">
+    <resultMap id="ChildrenResultMap" type="com.tsien.vhr.model.Resource" extends="BaseResultMap">
+        <collection property="subordinateResources" ofType="com.tsien.vhr.model.Resource">
+            <id column="children_resource_id" jdbcType="BIGINT" property="resourceId"/>
+            <result column="children_resource_path" jdbcType="VARCHAR" property="resourcePath"/>
+            <result column="children_component" jdbcType="VARCHAR" property="component"/>
+            <result column="children_name" jdbcType="VARCHAR" property="name"/>
+            <result column="children_icon_cls" jdbcType="VARCHAR" property="iconCls"/>
+            <result column="children_keep_alive" jdbcType="BOOLEAN" property="keepAlive"/>
+            <result column="children_require_auth" jdbcType="BOOLEAN" property="requireAuth"/>
         </collection>
     </resultMap>
+    <resultMap id="GrandchildrenResultMap" type="com.tsien.vhr.model.Resource" extends="ChildrenResultMap">
+        <collection property="subordinateResources" ofType="com.tsien.vhr.model.Resource">
+            <id column="grandchildren_resource_id" jdbcType="BIGINT" property="resourceId"/>
+            <result column="grandchildren_name" jdbcType="VARCHAR" property="name"/>
+        </collection>
+    </resultMap>
+
+
+    <!-- 查询下级资源 -->
+
 
     <sql id="Base_Column_List">
         <!--@mbg.generated-->
@@ -214,12 +228,54 @@
         and is_enabled=1
     </select>
 
-    <select id="listResources" resultMap="EagerLoad_ResultMap">
+    <select id="listResources" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
         from resource
         where is_deleted=0
         and is_enabled=1
         order by resource_id desc
+    </select>
+
+    <select id="listResourcesByUserId" parameterType="long" resultMap="ChildrenResultMap">
+        select resource.resource_id,
+        resource.resource_path,
+        resource.component,
+        resource.icon_cls,
+        resource.name,
+        resource.require_auth,
+        children_resource.resource_id as children_resource_id,
+        children_resource.component as children_component,
+        children_resource.icon_cls as children_icon_cls,
+        children_resource.keep_alive as children_keep_alive,
+        children_resource.name as children_name,
+        children_resource.resource_path as children_resource_path,
+        children_resource.require_auth as children_require_auth
+        from resource,
+        resource children_resource,
+        user_role_relation urr,
+        resource_role_relation rrr
+        where resource.resource_id = children_resource.parent_id
+        and children_resource.resource_id = rrr.resource_id
+        and rrr.role_id = urr.role_id
+        and urr.user_id = #{userId}
+        and children_resource.is_enabled=1
+        order by resource.resource_id,
+        children_resource.resource_id
+    </select>
+
+    <select id="listResourcesTree" resultMap="GrandchildrenResultMap">
+        select resource.resource_id,
+               resource.name,
+               children.resource_id      as children_resource_id,
+               children.name             as children_name,
+               grandchildren.resource_id as grandchildren_resource_id,
+               grandchildren.name        as grandchildren_name
+        from resource,
+             resource children,
+             resource grandchildren
+        where resource.resource_id = children.parent_id
+          and children.resource_id = grandchildren.parent_id
+          and grandchildren.is_enabled = 1;
     </select>
 </mapper>

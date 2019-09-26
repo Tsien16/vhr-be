@@ -35,9 +35,26 @@ public interface ResourceDAO {
     List<Resource> listResourcesByParentId(Long parentId);
 
     /**
-     * 查询所有的下级资源，递归
+     * 查询所有的资源，把Role关联上
      *
      * @return resources
      */
     List<Resource> listResources();
+
+    /**
+     * 通过userId查询所有的资源，包括它的下级资源
+     * 说明：菜单一共分三级，一级是/，所有的目要，二级是大模块，三级菜单才会有用户权限进行关联，这里查询的是二级、三级菜单
+     *
+     * @param userId userId
+     * @return resources
+     */
+    List<Resource> listResourcesByUserId(Long userId);
+
+    /**
+     * 查询资源树
+     *
+     * @return resourcesTree
+     */
+    List<Resource> listResourcesTree();
+
 }

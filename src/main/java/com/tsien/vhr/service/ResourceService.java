@@ -20,4 +20,19 @@ public interface ResourceService {
      * @return resources
      */
     List<Resource> listResources();
+
+    /**
+     * 通过userId查询所有的资源，包括它的下级资源
+     * 说明：菜单一共分三级，一级是/，所有的目要，二级是大模块，三级菜单才会有用户权限进行关联，这里查询的是二级、三级菜单
+     *
+     * @return resources
+     */
+    List<Resource> listResourcesByUserId();
+
+    /**
+     * 查询资源树
+     *
+     * @return resources
+     */
+    List<Resource> listResourcesTree();
 }

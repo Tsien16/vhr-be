@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tsien.vhr.dao.AreaDAO">
+    <resultMap id="BaseResultMap" type="com.tsien.vhr.model.Area">
+        <!--@mbg.generated-->
+        <!--@Table area-->
+        <id column="area_id" jdbcType="BIGINT" property="areaId"/>
+        <result column="abbreviate_name" jdbcType="VARCHAR" property="abbreviateName"/>
+        <result column="full_name" jdbcType="VARCHAR" property="fullName"/>
+        <result column="parent_id" jdbcType="BIGINT" property="parentId"/>
+        <result column="longitude" jdbcType="FLOAT" property="longitude"/>
+        <result column="latitude" jdbcType="FLOAT" property="latitude"/>
+        <result column="area_level" jdbcType="INTEGER" property="areaLevel"/>
+        <result column="sort" jdbcType="INTEGER" property="sort"/>
+        <result column="is_deleted" jdbcType="INTEGER" property="deleted"/>
+    </resultMap>
+
+    <resultMap id="EagerLoad_ResultMap" type="com.tsien.vhr.model.Area" extends="BaseResultMap">
+        <collection property="subordinateAreas" ofType="com.tsien.vhr.model.Area" select="listAreasByAreaId"
+                    column="area_id">
+        </collection>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        <!--@mbg.generated-->
+        area_id, abbreviate_name, full_name, parent_id, longitude, latitude, area_level,
+        sort, is_deleted
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        <!--@mbg.generated-->
+        select
+        <include refid="Base_Column_List"/>
+        from area
+        where area_id = #{areaId,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        <!--@mbg.generated-->
+        delete from area
+        where area_id = #{areaId,jdbcType=BIGINT}
+    </delete>
+    <insert id="insert" keyColumn="area_id" keyProperty="areaId" parameterType="com.tsien.vhr.model.Area"
+            useGeneratedKeys="true">
+        <!--@mbg.generated-->
+        insert into area (abbreviate_name, full_name, parent_id,
+        longitude, latitude, area_level,
+        sort, is_deleted)
+        values (#{abbreviateName,jdbcType=VARCHAR}, #{fullName,jdbcType=VARCHAR}, #{parentId,jdbcType=BIGINT},
+        #{longitude,jdbcType=FLOAT}, #{latitude,jdbcType=FLOAT}, #{areaLevel,jdbcType=INTEGER},
+        #{sort,jdbcType=INTEGER}, #{deleted,jdbcType=INTEGER})
+    </insert>
+    <insert id="insertSelective" keyColumn="area_id" keyProperty="areaId" parameterType="com.tsien.vhr.model.Area"
+            useGeneratedKeys="true">
+        <!--@mbg.generated-->
+        insert into area
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="abbreviateName != null and abbreviateName != ''">
+                abbreviate_name,
+            </if>
+            <if test="fullName != null and fullName != ''">
+                full_name,
+            </if>
+            <if test="parentId != null">
+                parent_id,
+            </if>
+            <if test="longitude != null">
+                longitude,
+            </if>
+            <if test="latitude != null">
+                latitude,
+            </if>
+            <if test="areaLevel != null">
+                area_level,
+            </if>
+            <if test="sort != null">
+                sort,
+            </if>
+            <if test="deleted != null">
+                is_deleted,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="abbreviateName != null and abbreviateName != ''">
+                #{abbreviateName,jdbcType=VARCHAR},
+            </if>
+            <if test="fullName != null and fullName != ''">
+                #{fullName,jdbcType=VARCHAR},
+            </if>
+            <if test="parentId != null">
+                #{parentId,jdbcType=BIGINT},
+            </if>
+            <if test="longitude != null">
+                #{longitude,jdbcType=FLOAT},
+            </if>
+            <if test="latitude != null">
+                #{latitude,jdbcType=FLOAT},
+            </if>
+            <if test="areaLevel != null">
+                #{areaLevel,jdbcType=INTEGER},
+            </if>
+            <if test="sort != null">
+                #{sort,jdbcType=INTEGER},
+            </if>
+            <if test="deleted != null">
+                #{deleted,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.tsien.vhr.model.Area">
+        <!--@mbg.generated-->
+        update area
+        <set>
+            <if test="abbreviateName != null and abbreviateName != ''">
+                abbreviate_name = #{abbreviateName,jdbcType=VARCHAR},
+            </if>
+            <if test="fullName != null and fullName != ''">
+                full_name = #{fullName,jdbcType=VARCHAR},
+            </if>
+            <if test="parentId != null">
+                parent_id = #{parentId,jdbcType=BIGINT},
+            </if>
+            <if test="longitude != null">
+                longitude = #{longitude,jdbcType=FLOAT},
+            </if>
+            <if test="latitude != null">
+                latitude = #{latitude,jdbcType=FLOAT},
+            </if>
+            <if test="areaLevel != null">
+                area_level = #{areaLevel,jdbcType=INTEGER},
+            </if>
+            <if test="sort != null">
+                sort = #{sort,jdbcType=INTEGER},
+            </if>
+            <if test="deleted != null">
+                is_deleted = #{deleted,jdbcType=INTEGER},
+            </if>
+        </set>
+        where area_id = #{areaId,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.tsien.vhr.model.Area">
+        <!--@mbg.generated-->
+        update area
+        set abbreviate_name = #{abbreviateName,jdbcType=VARCHAR},
+        full_name = #{fullName,jdbcType=VARCHAR},
+        parent_id = #{parentId,jdbcType=BIGINT},
+        longitude = #{longitude,jdbcType=FLOAT},
+        latitude = #{latitude,jdbcType=FLOAT},
+        area_level = #{areaLevel,jdbcType=INTEGER},
+        sort = #{sort,jdbcType=INTEGER},
+        is_deleted = #{deleted,jdbcType=INTEGER}
+        where area_id = #{areaId,jdbcType=BIGINT}
+    </update>
+
+    <select id="listAreasByParentId" parameterType="long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from area where parent_id=#{parentId}
+    </select>
+
+    <select id="listAreasByAreaId" parameterType="long" resultMap="EagerLoad_ResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from area where parent_id=#{areaId}
+    </select>
+</mapper>
