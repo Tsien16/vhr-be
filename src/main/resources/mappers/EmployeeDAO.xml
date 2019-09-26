@@ -1,404 +1,481 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.tsien.vhr.dao.EmployeeDAO">
-  <resultMap id="BaseResultMap" type="com.tsien.vhr.model.Employee">
-    <!--@mbg.generated-->
-    <!--@Table employee-->
-    <id column="employee_id" jdbcType="BIGINT" property="employeeId" />
-    <result column="employee_name" jdbcType="VARCHAR" property="employeeName" />
-    <result column="gender" jdbcType="CHAR" property="gender" />
-    <result column="birthday" jdbcType="DATE" property="birthday" />
-    <result column="id_card" jdbcType="CHAR" property="idCard" />
-    <result column="marital_status" jdbcType="OTHER" property="maritalStatus" />
-    <result column="nation_id" jdbcType="BIGINT" property="nationId" />
-    <result column="native_place" jdbcType="VARCHAR" property="nativePlace" />
-    <result column="political_status_id" jdbcType="BIGINT" property="politicalStatusId" />
-    <result column="email" jdbcType="VARCHAR" property="email" />
-    <result column="phone" jdbcType="VARCHAR" property="phone" />
-    <result column="address" jdbcType="VARCHAR" property="address" />
-    <result column="department_id" jdbcType="BIGINT" property="departmentId" />
-    <result column="professional_title_id" jdbcType="BIGINT" property="professionalTitleId" />
-    <result column="position_id" jdbcType="BIGINT" property="positionId" />
-    <result column="employment_form" jdbcType="VARCHAR" property="employmentForm" />
-    <result column="highest_degree" jdbcType="OTHER" property="highestDegree" />
-    <result column="school" jdbcType="VARCHAR" property="school" />
-    <result column="specialty" jdbcType="VARCHAR" property="specialty" />
-    <result column="position_start_date" jdbcType="DATE" property="positionStartDate" />
-    <result column="working_status" jdbcType="OTHER" property="workingStatus" />
-    <result column="work_number" jdbcType="CHAR" property="workNumber" />
-    <result column="contract_period" jdbcType="DOUBLE" property="contractPeriod" />
-    <result column="conversion_date" jdbcType="DATE" property="conversionDate" />
-    <result column="dimission_date" jdbcType="DATE" property="dimissionDate" />
-    <result column="contract_begin" jdbcType="DATE" property="contractBegin" />
-    <result column="contract_end" jdbcType="DATE" property="contractEnd" />
-    <result column="work_age" jdbcType="INTEGER" property="workAge" />
-    <result column="is_deleted" jdbcType="BOOLEAN" property="isDeleted" />
-    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    <!--@mbg.generated-->
-    employee_id, employee_name, gender, birthday, id_card, marital_status, nation_id, 
-    native_place, political_status_id, email, phone, address, department_id, professional_title_id, 
-    position_id, employment_form, highest_degree, school, specialty, position_start_date, 
-    working_status, work_number, contract_period, conversion_date, dimission_date, contract_begin, 
-    contract_end, work_age, is_deleted, create_time, update_time
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    <!--@mbg.generated-->
-    select 
-    <include refid="Base_Column_List" />
-    from employee
-    where employee_id = #{employeeId,jdbcType=BIGINT}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-    <!--@mbg.generated-->
-    delete from employee
-    where employee_id = #{employeeId,jdbcType=BIGINT}
-  </delete>
-  <insert id="insert" keyColumn="employee_id" keyProperty="employeeId" parameterType="com.tsien.vhr.model.Employee" useGeneratedKeys="true">
-    <!--@mbg.generated-->
-    insert into employee (employee_name, gender, birthday, 
-      id_card, marital_status, nation_id, 
-      native_place, political_status_id, email, 
-      phone, address, department_id, 
-      professional_title_id, position_id, employment_form, 
-      highest_degree, school, specialty, 
-      position_start_date, working_status, work_number, 
-      contract_period, conversion_date, dimission_date, 
-      contract_begin, contract_end, work_age, 
-      is_deleted, create_time, update_time
-      )
-    values (#{employeeName,jdbcType=VARCHAR}, #{gender,jdbcType=CHAR}, #{birthday,jdbcType=DATE}, 
-      #{idCard,jdbcType=CHAR}, #{maritalStatus,jdbcType=OTHER}, #{nationId,jdbcType=BIGINT}, 
-      #{nativePlace,jdbcType=VARCHAR}, #{politicalStatusId,jdbcType=BIGINT}, #{email,jdbcType=VARCHAR}, 
-      #{phone,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{departmentId,jdbcType=BIGINT}, 
-      #{professionalTitleId,jdbcType=BIGINT}, #{positionId,jdbcType=BIGINT}, #{employmentForm,jdbcType=VARCHAR}, 
-      #{highestDegree,jdbcType=OTHER}, #{school,jdbcType=VARCHAR}, #{specialty,jdbcType=VARCHAR}, 
-      #{positionStartDate,jdbcType=DATE}, #{workingStatus,jdbcType=OTHER}, #{workNumber,jdbcType=CHAR}, 
-      #{contractPeriod,jdbcType=DOUBLE}, #{conversionDate,jdbcType=DATE}, #{dimissionDate,jdbcType=DATE}, 
-      #{contractBegin,jdbcType=DATE}, #{contractEnd,jdbcType=DATE}, #{workAge,jdbcType=INTEGER}, 
-      #{isDeleted,jdbcType=BOOLEAN}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
-      )
-  </insert>
-  <insert id="insertSelective" keyColumn="employee_id" keyProperty="employeeId" parameterType="com.tsien.vhr.model.Employee" useGeneratedKeys="true">
-    <!--@mbg.generated-->
-    insert into employee
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="employeeName != null and employeeName != ''">
-        employee_name,
-      </if>
-      <if test="gender != null and gender != ''">
-        gender,
-      </if>
-      <if test="birthday != null">
-        birthday,
-      </if>
-      <if test="idCard != null and idCard != ''">
-        id_card,
-      </if>
-      <if test="maritalStatus != null">
-        marital_status,
-      </if>
-      <if test="nationId != null">
-        nation_id,
-      </if>
-      <if test="nativePlace != null and nativePlace != ''">
-        native_place,
-      </if>
-      <if test="politicalStatusId != null">
-        political_status_id,
-      </if>
-      <if test="email != null and email != ''">
-        email,
-      </if>
-      <if test="phone != null and phone != ''">
-        phone,
-      </if>
-      <if test="address != null and address != ''">
-        address,
-      </if>
-      <if test="departmentId != null">
-        department_id,
-      </if>
-      <if test="professionalTitleId != null">
-        professional_title_id,
-      </if>
-      <if test="positionId != null">
-        position_id,
-      </if>
-      <if test="employmentForm != null and employmentForm != ''">
-        employment_form,
-      </if>
-      <if test="highestDegree != null">
-        highest_degree,
-      </if>
-      <if test="school != null and school != ''">
-        school,
-      </if>
-      <if test="specialty != null and specialty != ''">
-        specialty,
-      </if>
-      <if test="positionStartDate != null">
-        position_start_date,
-      </if>
-      <if test="workingStatus != null">
-        working_status,
-      </if>
-      <if test="workNumber != null and workNumber != ''">
-        work_number,
-      </if>
-      <if test="contractPeriod != null">
-        contract_period,
-      </if>
-      <if test="conversionDate != null">
-        conversion_date,
-      </if>
-      <if test="dimissionDate != null">
-        dimission_date,
-      </if>
-      <if test="contractBegin != null">
-        contract_begin,
-      </if>
-      <if test="contractEnd != null">
-        contract_end,
-      </if>
-      <if test="workAge != null">
-        work_age,
-      </if>
-      <if test="isDeleted != null">
-        is_deleted,
-      </if>
-      <if test="createTime != null">
-        create_time,
-      </if>
-      <if test="updateTime != null">
-        update_time,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="employeeName != null and employeeName != ''">
-        #{employeeName,jdbcType=VARCHAR},
-      </if>
-      <if test="gender != null and gender != ''">
-        #{gender,jdbcType=CHAR},
-      </if>
-      <if test="birthday != null">
-        #{birthday,jdbcType=DATE},
-      </if>
-      <if test="idCard != null and idCard != ''">
-        #{idCard,jdbcType=CHAR},
-      </if>
-      <if test="maritalStatus != null">
-        #{maritalStatus,jdbcType=OTHER},
-      </if>
-      <if test="nationId != null">
-        #{nationId,jdbcType=BIGINT},
-      </if>
-      <if test="nativePlace != null and nativePlace != ''">
-        #{nativePlace,jdbcType=VARCHAR},
-      </if>
-      <if test="politicalStatusId != null">
-        #{politicalStatusId,jdbcType=BIGINT},
-      </if>
-      <if test="email != null and email != ''">
-        #{email,jdbcType=VARCHAR},
-      </if>
-      <if test="phone != null and phone != ''">
-        #{phone,jdbcType=VARCHAR},
-      </if>
-      <if test="address != null and address != ''">
-        #{address,jdbcType=VARCHAR},
-      </if>
-      <if test="departmentId != null">
-        #{departmentId,jdbcType=BIGINT},
-      </if>
-      <if test="professionalTitleId != null">
-        #{professionalTitleId,jdbcType=BIGINT},
-      </if>
-      <if test="positionId != null">
-        #{positionId,jdbcType=BIGINT},
-      </if>
-      <if test="employmentForm != null and employmentForm != ''">
-        #{employmentForm,jdbcType=VARCHAR},
-      </if>
-      <if test="highestDegree != null">
-        #{highestDegree,jdbcType=OTHER},
-      </if>
-      <if test="school != null and school != ''">
-        #{school,jdbcType=VARCHAR},
-      </if>
-      <if test="specialty != null and specialty != ''">
-        #{specialty,jdbcType=VARCHAR},
-      </if>
-      <if test="positionStartDate != null">
-        #{positionStartDate,jdbcType=DATE},
-      </if>
-      <if test="workingStatus != null">
-        #{workingStatus,jdbcType=OTHER},
-      </if>
-      <if test="workNumber != null and workNumber != ''">
-        #{workNumber,jdbcType=CHAR},
-      </if>
-      <if test="contractPeriod != null">
-        #{contractPeriod,jdbcType=DOUBLE},
-      </if>
-      <if test="conversionDate != null">
-        #{conversionDate,jdbcType=DATE},
-      </if>
-      <if test="dimissionDate != null">
-        #{dimissionDate,jdbcType=DATE},
-      </if>
-      <if test="contractBegin != null">
-        #{contractBegin,jdbcType=DATE},
-      </if>
-      <if test="contractEnd != null">
-        #{contractEnd,jdbcType=DATE},
-      </if>
-      <if test="workAge != null">
-        #{workAge,jdbcType=INTEGER},
-      </if>
-      <if test="isDeleted != null">
-        #{isDeleted,jdbcType=BOOLEAN},
-      </if>
-      <if test="createTime != null">
-        #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null">
-        #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.tsien.vhr.model.Employee">
-    <!--@mbg.generated-->
-    update employee
-    <set>
-      <if test="employeeName != null and employeeName != ''">
-        employee_name = #{employeeName,jdbcType=VARCHAR},
-      </if>
-      <if test="gender != null and gender != ''">
+    <resultMap id="BaseResultMap" type="com.tsien.vhr.model.Employee">
+        <!--@mbg.generated-->
+        <!--@Table employee-->
+        <id column="employee_id" jdbcType="BIGINT" property="employeeId"/>
+        <result column="employee_name" jdbcType="VARCHAR" property="employeeName"/>
+        <result column="gender" jdbcType="CHAR" property="gender"/>
+        <result column="birthday" jdbcType="DATE" property="birthday"/>
+        <result column="id_card" jdbcType="CHAR" property="idCard"/>
+        <result column="marital_status" jdbcType="OTHER" property="maritalStatus"/>
+        <result column="nation_id" jdbcType="BIGINT" property="nationId"/>
+        <result column="native_place" jdbcType="VARCHAR" property="nativePlace"/>
+        <result column="political_status_id" jdbcType="BIGINT" property="politicalStatusId"/>
+        <result column="email" jdbcType="VARCHAR" property="email"/>
+        <result column="phone" jdbcType="VARCHAR" property="phone"/>
+        <result column="address" jdbcType="VARCHAR" property="address"/>
+        <result column="department_id" jdbcType="BIGINT" property="departmentId"/>
+        <result column="professional_title_id" jdbcType="BIGINT" property="professionalTitleId"/>
+        <result column="position_id" jdbcType="BIGINT" property="positionId"/>
+        <result column="employment_form" jdbcType="VARCHAR" property="employmentForm"/>
+        <result column="highest_degree" jdbcType="OTHER" property="highestDegree"/>
+        <result column="school" jdbcType="VARCHAR" property="school"/>
+        <result column="specialty" jdbcType="VARCHAR" property="specialty"/>
+        <result column="position_start_date" jdbcType="DATE" property="positionStartDate"/>
+        <result column="working_status" jdbcType="OTHER" property="workingStatus"/>
+        <result column="work_number" jdbcType="CHAR" property="workNumber"/>
+        <result column="contract_period" jdbcType="DOUBLE" property="contractPeriod"/>
+        <result column="conversion_date" jdbcType="DATE" property="conversionDate"/>
+        <result column="dimission_date" jdbcType="DATE" property="dimissionDate"/>
+        <result column="contract_begin" jdbcType="DATE" property="contractBegin"/>
+        <result column="contract_end" jdbcType="DATE" property="contractEnd"/>
+        <result column="work_age" jdbcType="INTEGER" property="workAge"/>
+        <result column="is_deleted" jdbcType="BOOLEAN" property="deleted"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--@mbg.generated-->
+        employee_id, employee_name, gender, birthday, id_card, marital_status, nation_id,
+        native_place, political_status_id, email, phone, address, department_id, professional_title_id,
+        position_id, employment_form, highest_degree, school, specialty, position_start_date,
+        working_status, work_number, contract_period, conversion_date, dimission_date, contract_begin,
+        contract_end, work_age, is_deleted, create_time, update_time
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        <!--@mbg.generated-->
+        select
+        <include refid="Base_Column_List"/>
+        from employee
+        where employee_id = #{employeeId,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        <!--@mbg.generated-->
+        delete from employee
+        where employee_id = #{employeeId,jdbcType=BIGINT}
+    </delete>
+    <insert id="insert" keyColumn="employee_id" keyProperty="employeeId" parameterType="com.tsien.vhr.model.Employee"
+            useGeneratedKeys="true">
+        <!--@mbg.generated-->
+        insert into employee (employee_name, gender, birthday,
+        id_card, marital_status, nation_id,
+        native_place, political_status_id, email,
+        phone, address, department_id,
+        professional_title_id, position_id, employment_form,
+        highest_degree, school, specialty,
+        position_start_date, working_status, work_number,
+        contract_period, conversion_date, dimission_date,
+        contract_begin, contract_end, work_age,
+        is_deleted, create_time, update_time
+        )
+        values (#{employeeName,jdbcType=VARCHAR}, #{gender,jdbcType=CHAR}, #{birthday,jdbcType=DATE},
+        #{idCard,jdbcType=CHAR}, #{maritalStatus,jdbcType=OTHER}, #{nationId,jdbcType=BIGINT},
+        #{nativePlace,jdbcType=VARCHAR}, #{politicalStatusId,jdbcType=BIGINT}, #{email,jdbcType=VARCHAR},
+        #{phone,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{departmentId,jdbcType=BIGINT},
+        #{professionalTitleId,jdbcType=BIGINT}, #{positionId,jdbcType=BIGINT}, #{employmentForm,jdbcType=VARCHAR},
+        #{highestDegree,jdbcType=OTHER}, #{school,jdbcType=VARCHAR}, #{specialty,jdbcType=VARCHAR},
+        #{positionStartDate,jdbcType=DATE}, #{workingStatus,jdbcType=OTHER}, #{workNumber,jdbcType=CHAR},
+        #{contractPeriod,jdbcType=DOUBLE}, #{conversionDate,jdbcType=DATE}, #{dimissionDate,jdbcType=DATE},
+        #{contractBegin,jdbcType=DATE}, #{contractEnd,jdbcType=DATE}, #{workAge,jdbcType=INTEGER},
+        #{deleted,jdbcType=BOOLEAN}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+        )
+    </insert>
+    <insert id="insertSelective" keyColumn="employee_id" keyProperty="employeeId"
+            parameterType="com.tsien.vhr.model.Employee" useGeneratedKeys="true">
+        <!--@mbg.generated-->
+        insert into employee
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="employeeName != null and employeeName != ''">
+                employee_name,
+            </if>
+            <if test="gender != null and gender != ''">
+                gender,
+            </if>
+            <if test="birthday != null">
+                birthday,
+            </if>
+            <if test="idCard != null and idCard != ''">
+                id_card,
+            </if>
+            <if test="maritalStatus != null">
+                marital_status,
+            </if>
+            <if test="nationId != null">
+                nation_id,
+            </if>
+            <if test="nativePlace != null and nativePlace != ''">
+                native_place,
+            </if>
+            <if test="politicalStatusId != null">
+                political_status_id,
+            </if>
+            <if test="email != null and email != ''">
+                email,
+            </if>
+            <if test="phone != null and phone != ''">
+                phone,
+            </if>
+            <if test="address != null and address != ''">
+                address,
+            </if>
+            <if test="departmentId != null">
+                department_id,
+            </if>
+            <if test="professionalTitleId != null">
+                professional_title_id,
+            </if>
+            <if test="positionId != null">
+                position_id,
+            </if>
+            <if test="employmentForm != null and employmentForm != ''">
+                employment_form,
+            </if>
+            <if test="highestDegree != null">
+                highest_degree,
+            </if>
+            <if test="school != null and school != ''">
+                school,
+            </if>
+            <if test="specialty != null and specialty != ''">
+                specialty,
+            </if>
+            <if test="positionStartDate != null">
+                position_start_date,
+            </if>
+            <if test="workingStatus != null">
+                working_status,
+            </if>
+            <if test="workNumber != null and workNumber != ''">
+                work_number,
+            </if>
+            <if test="contractPeriod != null">
+                contract_period,
+            </if>
+            <if test="conversionDate != null">
+                conversion_date,
+            </if>
+            <if test="dimissionDate != null">
+                dimission_date,
+            </if>
+            <if test="contractBegin != null">
+                contract_begin,
+            </if>
+            <if test="contractEnd != null">
+                contract_end,
+            </if>
+            <if test="workAge != null">
+                work_age,
+            </if>
+            <if test="deleted != null">
+                is_deleted,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="employeeName != null and employeeName != ''">
+                #{employeeName,jdbcType=VARCHAR},
+            </if>
+            <if test="gender != null and gender != ''">
+                #{gender,jdbcType=CHAR},
+            </if>
+            <if test="birthday != null">
+                #{birthday,jdbcType=DATE},
+            </if>
+            <if test="idCard != null and idCard != ''">
+                #{idCard,jdbcType=CHAR},
+            </if>
+            <if test="maritalStatus != null">
+                #{maritalStatus,jdbcType=OTHER},
+            </if>
+            <if test="nationId != null">
+                #{nationId,jdbcType=BIGINT},
+            </if>
+            <if test="nativePlace != null and nativePlace != ''">
+                #{nativePlace,jdbcType=VARCHAR},
+            </if>
+            <if test="politicalStatusId != null">
+                #{politicalStatusId,jdbcType=BIGINT},
+            </if>
+            <if test="email != null and email != ''">
+                #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="phone != null and phone != ''">
+                #{phone,jdbcType=VARCHAR},
+            </if>
+            <if test="address != null and address != ''">
+                #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="departmentId != null">
+                #{departmentId,jdbcType=BIGINT},
+            </if>
+            <if test="professionalTitleId != null">
+                #{professionalTitleId,jdbcType=BIGINT},
+            </if>
+            <if test="positionId != null">
+                #{positionId,jdbcType=BIGINT},
+            </if>
+            <if test="employmentForm != null and employmentForm != ''">
+                #{employmentForm,jdbcType=VARCHAR},
+            </if>
+            <if test="highestDegree != null">
+                #{highestDegree,jdbcType=OTHER},
+            </if>
+            <if test="school != null and school != ''">
+                #{school,jdbcType=VARCHAR},
+            </if>
+            <if test="specialty != null and specialty != ''">
+                #{specialty,jdbcType=VARCHAR},
+            </if>
+            <if test="positionStartDate != null">
+                #{positionStartDate,jdbcType=DATE},
+            </if>
+            <if test="workingStatus != null">
+                #{workingStatus,jdbcType=OTHER},
+            </if>
+            <if test="workNumber != null and workNumber != ''">
+                #{workNumber,jdbcType=CHAR},
+            </if>
+            <if test="contractPeriod != null">
+                #{contractPeriod,jdbcType=DOUBLE},
+            </if>
+            <if test="conversionDate != null">
+                #{conversionDate,jdbcType=DATE},
+            </if>
+            <if test="dimissionDate != null">
+                #{dimissionDate,jdbcType=DATE},
+            </if>
+            <if test="contractBegin != null">
+                #{contractBegin,jdbcType=DATE},
+            </if>
+            <if test="contractEnd != null">
+                #{contractEnd,jdbcType=DATE},
+            </if>
+            <if test="workAge != null">
+                #{workAge,jdbcType=INTEGER},
+            </if>
+            <if test="deleted != null">
+                #{deleted,jdbcType=BOOLEAN},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.tsien.vhr.model.Employee">
+        <!--@mbg.generated-->
+        update employee
+        <set>
+            <if test="employeeName != null and employeeName != ''">
+                employee_name = #{employeeName,jdbcType=VARCHAR},
+            </if>
+            <if test="gender != null and gender != ''">
+                gender = #{gender,jdbcType=CHAR},
+            </if>
+            <if test="birthday != null">
+                birthday = #{birthday,jdbcType=DATE},
+            </if>
+            <if test="idCard != null and idCard != ''">
+                id_card = #{idCard,jdbcType=CHAR},
+            </if>
+            <if test="maritalStatus != null">
+                marital_status = #{maritalStatus,jdbcType=OTHER},
+            </if>
+            <if test="nationId != null">
+                nation_id = #{nationId,jdbcType=BIGINT},
+            </if>
+            <if test="nativePlace != null and nativePlace != ''">
+                native_place = #{nativePlace,jdbcType=VARCHAR},
+            </if>
+            <if test="politicalStatusId != null">
+                political_status_id = #{politicalStatusId,jdbcType=BIGINT},
+            </if>
+            <if test="email != null and email != ''">
+                email = #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="phone != null and phone != ''">
+                phone = #{phone,jdbcType=VARCHAR},
+            </if>
+            <if test="address != null and address != ''">
+                address = #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="departmentId != null">
+                department_id = #{departmentId,jdbcType=BIGINT},
+            </if>
+            <if test="professionalTitleId != null">
+                professional_title_id = #{professionalTitleId,jdbcType=BIGINT},
+            </if>
+            <if test="positionId != null">
+                position_id = #{positionId,jdbcType=BIGINT},
+            </if>
+            <if test="employmentForm != null and employmentForm != ''">
+                employment_form = #{employmentForm,jdbcType=VARCHAR},
+            </if>
+            <if test="highestDegree != null">
+                highest_degree = #{highestDegree,jdbcType=OTHER},
+            </if>
+            <if test="school != null and school != ''">
+                school = #{school,jdbcType=VARCHAR},
+            </if>
+            <if test="specialty != null and specialty != ''">
+                specialty = #{specialty,jdbcType=VARCHAR},
+            </if>
+            <if test="positionStartDate != null">
+                position_start_date = #{positionStartDate,jdbcType=DATE},
+            </if>
+            <if test="workingStatus != null">
+                working_status = #{workingStatus,jdbcType=OTHER},
+            </if>
+            <if test="workNumber != null and workNumber != ''">
+                work_number = #{workNumber,jdbcType=CHAR},
+            </if>
+            <if test="contractPeriod != null">
+                contract_period = #{contractPeriod,jdbcType=DOUBLE},
+            </if>
+            <if test="conversionDate != null">
+                conversion_date = #{conversionDate,jdbcType=DATE},
+            </if>
+            <if test="dimissionDate != null">
+                dimission_date = #{dimissionDate,jdbcType=DATE},
+            </if>
+            <if test="contractBegin != null">
+                contract_begin = #{contractBegin,jdbcType=DATE},
+            </if>
+            <if test="contractEnd != null">
+                contract_end = #{contractEnd,jdbcType=DATE},
+            </if>
+            <if test="workAge != null">
+                work_age = #{workAge,jdbcType=INTEGER},
+            </if>
+            <if test="deleted != null">
+                is_deleted = #{deleted,jdbcType=BOOLEAN},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where employee_id = #{employeeId,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.tsien.vhr.model.Employee">
+        <!--@mbg.generated-->
+        update employee
+        set employee_name = #{employeeName,jdbcType=VARCHAR},
         gender = #{gender,jdbcType=CHAR},
-      </if>
-      <if test="birthday != null">
         birthday = #{birthday,jdbcType=DATE},
-      </if>
-      <if test="idCard != null and idCard != ''">
         id_card = #{idCard,jdbcType=CHAR},
-      </if>
-      <if test="maritalStatus != null">
         marital_status = #{maritalStatus,jdbcType=OTHER},
-      </if>
-      <if test="nationId != null">
         nation_id = #{nationId,jdbcType=BIGINT},
-      </if>
-      <if test="nativePlace != null and nativePlace != ''">
         native_place = #{nativePlace,jdbcType=VARCHAR},
-      </if>
-      <if test="politicalStatusId != null">
         political_status_id = #{politicalStatusId,jdbcType=BIGINT},
-      </if>
-      <if test="email != null and email != ''">
         email = #{email,jdbcType=VARCHAR},
-      </if>
-      <if test="phone != null and phone != ''">
         phone = #{phone,jdbcType=VARCHAR},
-      </if>
-      <if test="address != null and address != ''">
         address = #{address,jdbcType=VARCHAR},
-      </if>
-      <if test="departmentId != null">
         department_id = #{departmentId,jdbcType=BIGINT},
-      </if>
-      <if test="professionalTitleId != null">
         professional_title_id = #{professionalTitleId,jdbcType=BIGINT},
-      </if>
-      <if test="positionId != null">
         position_id = #{positionId,jdbcType=BIGINT},
-      </if>
-      <if test="employmentForm != null and employmentForm != ''">
         employment_form = #{employmentForm,jdbcType=VARCHAR},
-      </if>
-      <if test="highestDegree != null">
         highest_degree = #{highestDegree,jdbcType=OTHER},
-      </if>
-      <if test="school != null and school != ''">
         school = #{school,jdbcType=VARCHAR},
-      </if>
-      <if test="specialty != null and specialty != ''">
         specialty = #{specialty,jdbcType=VARCHAR},
-      </if>
-      <if test="positionStartDate != null">
         position_start_date = #{positionStartDate,jdbcType=DATE},
-      </if>
-      <if test="workingStatus != null">
         working_status = #{workingStatus,jdbcType=OTHER},
-      </if>
-      <if test="workNumber != null and workNumber != ''">
         work_number = #{workNumber,jdbcType=CHAR},
-      </if>
-      <if test="contractPeriod != null">
         contract_period = #{contractPeriod,jdbcType=DOUBLE},
-      </if>
-      <if test="conversionDate != null">
         conversion_date = #{conversionDate,jdbcType=DATE},
-      </if>
-      <if test="dimissionDate != null">
         dimission_date = #{dimissionDate,jdbcType=DATE},
-      </if>
-      <if test="contractBegin != null">
         contract_begin = #{contractBegin,jdbcType=DATE},
-      </if>
-      <if test="contractEnd != null">
         contract_end = #{contractEnd,jdbcType=DATE},
-      </if>
-      <if test="workAge != null">
         work_age = #{workAge,jdbcType=INTEGER},
-      </if>
-      <if test="isDeleted != null">
-        is_deleted = #{isDeleted,jdbcType=BOOLEAN},
-      </if>
-      <if test="createTime != null">
+        is_deleted = #{deleted,jdbcType=BOOLEAN},
         create_time = #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null">
-        update_time = #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-    </set>
-    where employee_id = #{employeeId,jdbcType=BIGINT}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.tsien.vhr.model.Employee">
-    <!--@mbg.generated-->
-    update employee
-    set employee_name = #{employeeName,jdbcType=VARCHAR},
-      gender = #{gender,jdbcType=CHAR},
-      birthday = #{birthday,jdbcType=DATE},
-      id_card = #{idCard,jdbcType=CHAR},
-      marital_status = #{maritalStatus,jdbcType=OTHER},
-      nation_id = #{nationId,jdbcType=BIGINT},
-      native_place = #{nativePlace,jdbcType=VARCHAR},
-      political_status_id = #{politicalStatusId,jdbcType=BIGINT},
-      email = #{email,jdbcType=VARCHAR},
-      phone = #{phone,jdbcType=VARCHAR},
-      address = #{address,jdbcType=VARCHAR},
-      department_id = #{departmentId,jdbcType=BIGINT},
-      professional_title_id = #{professionalTitleId,jdbcType=BIGINT},
-      position_id = #{positionId,jdbcType=BIGINT},
-      employment_form = #{employmentForm,jdbcType=VARCHAR},
-      highest_degree = #{highestDegree,jdbcType=OTHER},
-      school = #{school,jdbcType=VARCHAR},
-      specialty = #{specialty,jdbcType=VARCHAR},
-      position_start_date = #{positionStartDate,jdbcType=DATE},
-      working_status = #{workingStatus,jdbcType=OTHER},
-      work_number = #{workNumber,jdbcType=CHAR},
-      contract_period = #{contractPeriod,jdbcType=DOUBLE},
-      conversion_date = #{conversionDate,jdbcType=DATE},
-      dimission_date = #{dimissionDate,jdbcType=DATE},
-      contract_begin = #{contractBegin,jdbcType=DATE},
-      contract_end = #{contractEnd,jdbcType=DATE},
-      work_age = #{workAge,jdbcType=INTEGER},
-      is_deleted = #{isDeleted,jdbcType=BOOLEAN},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP}
-    where employee_id = #{employeeId,jdbcType=BIGINT}
-  </update>
+        update_time = #{updateTime,jdbcType=TIMESTAMP}
+        where employee_id = #{employeeId,jdbcType=BIGINT}
+    </update>
+
+    <select id="listEmployeesByKeywords" parameterType="map" resultMap="BaseResultMap">
+        select employee.employee_id,
+        employee.employee_name,
+        employee.gender,
+        employee.birthday,
+        employee.id_card,
+        employee.marital_status,
+        employee.nation_id,
+        employee.native_place,
+        employee.political_status_id,
+        employee.email,
+        employee.phone,
+        employee.address,
+        employee.department_id,
+        employee.professional_title_id,
+        employee.position_id,
+        employee.employment_form,
+        employee.highest_degree,
+        employee.school,
+        employee.specialty,
+        employee.position_start_date,
+        employee.working_status,
+        employee.work_number,
+        employee.contract_period,
+        employee.conversion_date,
+        employee.dimission_date,
+        employee.contract_begin,
+        employee.contract_end,
+        employee.work_age,
+        employee.is_deleted,
+        employee.create_time,
+        employee.update_time,
+        professional_title.name,
+        professional_title.level,
+        department.department_name,
+        nation.nation_name,
+        position.position_name,
+        political_status.political_status_name
+        from employee,
+        professional_title,
+        department,
+        nation,
+        position,
+        political_status
+        where employee.position_id = position.position_id
+        and employee.professional_title_id = professional_title.professional_title_id
+        and employee.department_id = department.department_id
+        and employee.nation_id = nation.nation_id
+        and employee.political_status_id = political_status.political_status_id
+        and employee.employee_name like concat('%',#{keywords},'%')
+        <if test="employmentForm!=null and employmentForm!=''">
+            AND employee.employment_form=#{employmentForm}
+        </if>
+        <if test="politicalStatusId !=null and politicalStatusId!=''">
+            AND employee.political_status_id=#{politicalStatusId}
+        </if>
+        <if test="nationId!=null and nationId!=''">
+            AND employee.nation_id=#{nationId}
+        </if>
+        <if test="positionId!=null and positionId!=''">
+            AND employee.position_id=#{positionId}
+        </if>
+        <if test="professionalTitleId!=null and professionalTitleId!=''">
+            AND employee.professional_title_id=#{professionalTitleId}
+        </if>
+        <if test="departmentId!=null and departmentId!=''">
+            AND employee.department_id=#{departmentId}
+        </if>
+        <if test="positionStartDateBegin!=null and positionStartDateEnd!=null">
+            AND employee.position_start_date BETWEEN #{positionStartDateBegin} AND #{positionStartDateEnd}
+        </if>
+        order by employee.employee_id
+    </select>
+
 </mapper>

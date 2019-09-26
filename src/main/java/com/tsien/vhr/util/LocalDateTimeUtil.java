@@ -13,7 +13,7 @@ import java.time.format.DateTimeFormatter;
  * @date 2019/9/24 0024 9:41
  */
 
-public class DateTimeUtil {
+public class LocalDateTimeUtil {
 
     /**
      * 标准化日期格式
