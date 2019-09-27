@@ -26,9 +26,9 @@ public class EmployeeController {
 
     @GetMapping(value = "/emp")
     public PageInfo listEmployees(
-            @RequestParam(defaultValue = "1") Integer pageNum,
-            @RequestParam(defaultValue = "10") Integer pageSize,
-            @RequestParam(defaultValue = "") String keywords,
+            @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
+            @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize,
+            @RequestParam(value = "keywords", defaultValue = "") String keywords,
             Long politicalStatusId, Long nationId, Long positionId,
             Long professionalTitleId, String employmentForm,
             Long departmentId, String positionStartDateScope) {
