@@ -11,14 +11,19 @@
         <result column="id_card" jdbcType="CHAR" property="idCard"/>
         <result column="marital_status" jdbcType="OTHER" property="maritalStatus"/>
         <result column="nation_id" jdbcType="BIGINT" property="nationId"/>
+        <result column="nation_name" jdbcType="VARCHAR" property="nationName"/>
         <result column="native_place" jdbcType="VARCHAR" property="nativePlace"/>
         <result column="political_status_id" jdbcType="BIGINT" property="politicalStatusId"/>
+        <result column="political_status_name" jdbcType="VARCHAR" property="politicalStatusName"/>
         <result column="email" jdbcType="VARCHAR" property="email"/>
         <result column="phone" jdbcType="VARCHAR" property="phone"/>
         <result column="address" jdbcType="VARCHAR" property="address"/>
         <result column="department_id" jdbcType="BIGINT" property="departmentId"/>
+        <result column="department_name" jdbcType="VARCHAR" property="departmentName"/>
         <result column="professional_title_id" jdbcType="BIGINT" property="professionalTitleId"/>
+        <result column="professional_title_name" jdbcType="VARCHAR" property="professionalTitleName"/>
         <result column="position_id" jdbcType="BIGINT" property="positionId"/>
+        <result column="position_name" jdbcType="VARCHAR" property="positionName"/>
         <result column="employment_form" jdbcType="VARCHAR" property="employmentForm"/>
         <result column="highest_degree" jdbcType="OTHER" property="highestDegree"/>
         <result column="school" jdbcType="VARCHAR" property="school"/>
@@ -36,11 +41,18 @@
         <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
         <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
     </resultMap>
+
+    <resultMap id="FullResultMap" type="com.tsien.vhr.model.Employee" extends="BaseResultMap">
+        <association property="salary" javaType="com.tsien.vhr.model.Salary">
+        </association>
+    </resultMap>
+
     <sql id="Base_Column_List">
         <!--@mbg.generated-->
         employee_id, employee_name, gender, birthday, id_card, marital_status, nation_id,
-        native_place, political_status_id, email, phone, address, department_id, professional_title_id,
-        position_id, employment_form, highest_degree, school, specialty, position_start_date,
+        nation_name, native_place, political_status_id, political_status_name, email, phone,
+        address, department_id, department_name, professional_title_id, professional_title_name,
+        position_id, position_name, employment_form, highest_degree, school, specialty, position_start_date,
         working_status, work_number, contract_period, conversion_date, dimission_date, contract_begin,
         contract_end, work_age, is_deleted, create_time, update_time
     </sql>
@@ -61,9 +73,11 @@
         <!--@mbg.generated-->
         insert into employee (employee_name, gender, birthday,
         id_card, marital_status, nation_id,
-        native_place, political_status_id, email,
-        phone, address, department_id,
-        professional_title_id, position_id, employment_form,
+        nation_name, native_place, political_status_id,
+        political_status_name, email, phone,
+        address, department_id, department_name,
+        professional_title_id, professional_title_name,
+        position_id, position_name, employment_form,
         highest_degree, school, specialty,
         position_start_date, working_status, work_number,
         contract_period, conversion_date, dimission_date,
@@ -72,9 +86,11 @@
         )
         values (#{employeeName,jdbcType=VARCHAR}, #{gender,jdbcType=CHAR}, #{birthday,jdbcType=DATE},
         #{idCard,jdbcType=CHAR}, #{maritalStatus,jdbcType=OTHER}, #{nationId,jdbcType=BIGINT},
-        #{nativePlace,jdbcType=VARCHAR}, #{politicalStatusId,jdbcType=BIGINT}, #{email,jdbcType=VARCHAR},
-        #{phone,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{departmentId,jdbcType=BIGINT},
-        #{professionalTitleId,jdbcType=BIGINT}, #{positionId,jdbcType=BIGINT}, #{employmentForm,jdbcType=VARCHAR},
+        #{nationName,jdbcType=VARCHAR}, #{nativePlace,jdbcType=VARCHAR}, #{politicalStatusId,jdbcType=BIGINT},
+        #{politicalStatusName,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR},
+        #{address,jdbcType=VARCHAR}, #{departmentId,jdbcType=BIGINT}, #{departmentName,jdbcType=VARCHAR},
+        #{professionalTitleId,jdbcType=BIGINT}, #{professionalTitleName,jdbcType=VARCHAR},
+        #{positionId,jdbcType=BIGINT}, #{positionName,jdbcType=VARCHAR}, #{employmentForm,jdbcType=VARCHAR},
         #{highestDegree,jdbcType=OTHER}, #{school,jdbcType=VARCHAR}, #{specialty,jdbcType=VARCHAR},
         #{positionStartDate,jdbcType=DATE}, #{workingStatus,jdbcType=OTHER}, #{workNumber,jdbcType=CHAR},
         #{contractPeriod,jdbcType=DOUBLE}, #{conversionDate,jdbcType=DATE}, #{dimissionDate,jdbcType=DATE},
@@ -105,11 +121,17 @@
             <if test="nationId != null">
                 nation_id,
             </if>
+            <if test="nationName != null and nationName != ''">
+                nation_name,
+            </if>
             <if test="nativePlace != null and nativePlace != ''">
                 native_place,
             </if>
             <if test="politicalStatusId != null">
                 political_status_id,
+            </if>
+            <if test="politicalStatusName != null and politicalStatusName != ''">
+                political_status_name,
             </if>
             <if test="email != null and email != ''">
                 email,
@@ -123,11 +145,20 @@
             <if test="departmentId != null">
                 department_id,
             </if>
+            <if test="departmentName != null and departmentName != ''">
+                department_name,
+            </if>
             <if test="professionalTitleId != null">
                 professional_title_id,
             </if>
+            <if test="professionalTitleName != null and professionalTitleName != ''">
+                professional_title_name,
+            </if>
             <if test="positionId != null">
                 position_id,
+            </if>
+            <if test="positionName != null and positionName != ''">
+                position_name,
             </if>
             <if test="employmentForm != null and employmentForm != ''">
                 employment_form,
@@ -197,11 +228,17 @@
             <if test="nationId != null">
                 #{nationId,jdbcType=BIGINT},
             </if>
+            <if test="nationName != null and nationName != ''">
+                #{nationName,jdbcType=VARCHAR},
+            </if>
             <if test="nativePlace != null and nativePlace != ''">
                 #{nativePlace,jdbcType=VARCHAR},
             </if>
             <if test="politicalStatusId != null">
                 #{politicalStatusId,jdbcType=BIGINT},
+            </if>
+            <if test="politicalStatusName != null and politicalStatusName != ''">
+                #{politicalStatusName,jdbcType=VARCHAR},
             </if>
             <if test="email != null and email != ''">
                 #{email,jdbcType=VARCHAR},
@@ -215,11 +252,20 @@
             <if test="departmentId != null">
                 #{departmentId,jdbcType=BIGINT},
             </if>
+            <if test="departmentName != null and departmentName != ''">
+                #{departmentName,jdbcType=VARCHAR},
+            </if>
             <if test="professionalTitleId != null">
                 #{professionalTitleId,jdbcType=BIGINT},
             </if>
+            <if test="professionalTitleName != null and professionalTitleName != ''">
+                #{professionalTitleName,jdbcType=VARCHAR},
+            </if>
             <if test="positionId != null">
                 #{positionId,jdbcType=BIGINT},
+            </if>
+            <if test="positionName != null and positionName != ''">
+                #{positionName,jdbcType=VARCHAR},
             </if>
             <if test="employmentForm != null and employmentForm != ''">
                 #{employmentForm,jdbcType=VARCHAR},
@@ -293,11 +339,17 @@
             <if test="nationId != null">
                 nation_id = #{nationId,jdbcType=BIGINT},
             </if>
+            <if test="nationName != null and nationName != ''">
+                nation_name = #{nationName,jdbcType=VARCHAR},
+            </if>
             <if test="nativePlace != null and nativePlace != ''">
                 native_place = #{nativePlace,jdbcType=VARCHAR},
             </if>
             <if test="politicalStatusId != null">
                 political_status_id = #{politicalStatusId,jdbcType=BIGINT},
+            </if>
+            <if test="politicalStatusName != null and politicalStatusName != ''">
+                political_status_name = #{politicalStatusName,jdbcType=VARCHAR},
             </if>
             <if test="email != null and email != ''">
                 email = #{email,jdbcType=VARCHAR},
@@ -311,11 +363,20 @@
             <if test="departmentId != null">
                 department_id = #{departmentId,jdbcType=BIGINT},
             </if>
+            <if test="departmentName != null and departmentName != ''">
+                department_name = #{departmentName,jdbcType=VARCHAR},
+            </if>
             <if test="professionalTitleId != null">
                 professional_title_id = #{professionalTitleId,jdbcType=BIGINT},
             </if>
+            <if test="professionalTitleName != null and professionalTitleName != ''">
+                professional_title_name = #{professionalTitleName,jdbcType=VARCHAR},
+            </if>
             <if test="positionId != null">
                 position_id = #{positionId,jdbcType=BIGINT},
+            </if>
+            <if test="positionName != null and positionName != ''">
+                position_name = #{positionName,jdbcType=VARCHAR},
             </if>
             <if test="employmentForm != null and employmentForm != ''">
                 employment_form = #{employmentForm,jdbcType=VARCHAR},
@@ -377,14 +438,19 @@
         id_card = #{idCard,jdbcType=CHAR},
         marital_status = #{maritalStatus,jdbcType=OTHER},
         nation_id = #{nationId,jdbcType=BIGINT},
+        nation_name = #{nationName,jdbcType=VARCHAR},
         native_place = #{nativePlace,jdbcType=VARCHAR},
         political_status_id = #{politicalStatusId,jdbcType=BIGINT},
+        political_status_name = #{politicalStatusName,jdbcType=VARCHAR},
         email = #{email,jdbcType=VARCHAR},
         phone = #{phone,jdbcType=VARCHAR},
         address = #{address,jdbcType=VARCHAR},
         department_id = #{departmentId,jdbcType=BIGINT},
+        department_name = #{departmentName,jdbcType=VARCHAR},
         professional_title_id = #{professionalTitleId,jdbcType=BIGINT},
+        professional_title_name = #{professionalTitleName,jdbcType=VARCHAR},
         position_id = #{positionId,jdbcType=BIGINT},
+        position_name = #{positionName,jdbcType=VARCHAR},
         employment_form = #{employmentForm,jdbcType=VARCHAR},
         highest_degree = #{highestDegree,jdbcType=OTHER},
         school = #{school,jdbcType=VARCHAR},
@@ -405,76 +471,35 @@
     </update>
 
     <select id="listEmployeesByKeywords" parameterType="map" resultMap="BaseResultMap">
-        select employee.employee_id,
-        employee.employee_name,
-        employee.gender,
-        employee.birthday,
-        employee.id_card,
-        employee.marital_status,
-        employee.nation_id,
-        employee.native_place,
-        employee.political_status_id,
-        employee.email,
-        employee.phone,
-        employee.address,
-        employee.department_id,
-        employee.professional_title_id,
-        employee.position_id,
-        employee.employment_form,
-        employee.highest_degree,
-        employee.school,
-        employee.specialty,
-        employee.position_start_date,
-        employee.working_status,
-        employee.work_number,
-        employee.contract_period,
-        employee.conversion_date,
-        employee.dimission_date,
-        employee.contract_begin,
-        employee.contract_end,
-        employee.work_age,
-        employee.is_deleted,
-        employee.create_time,
-        employee.update_time,
-        professional_title.name,
-        professional_title.level,
-        department.department_name,
-        nation.nation_name,
-        position.position_name,
-        political_status.political_status_name
-        from employee,
-        professional_title,
-        department,
-        nation,
-        position,
-        political_status
-        where employee.position_id = position.position_id
-        and employee.professional_title_id = professional_title.professional_title_id
-        and employee.department_id = department.department_id
-        and employee.nation_id = nation.nation_id
-        and employee.political_status_id = political_status.political_status_id
-        and employee.employee_name like concat('%',#{keywords},'%')
-        <if test="employmentForm!=null and employmentForm!=''">
-            AND employee.employment_form=#{employmentForm}
-        </if>
-        <if test="politicalStatusId !=null and politicalStatusId!=''">
-            AND employee.political_status_id=#{politicalStatusId}
-        </if>
-        <if test="nationId!=null and nationId!=''">
-            AND employee.nation_id=#{nationId}
-        </if>
-        <if test="positionId!=null and positionId!=''">
-            AND employee.position_id=#{positionId}
-        </if>
-        <if test="professionalTitleId!=null and professionalTitleId!=''">
-            AND employee.professional_title_id=#{professionalTitleId}
-        </if>
-        <if test="departmentId!=null and departmentId!=''">
-            AND employee.department_id=#{departmentId}
-        </if>
-        <if test="positionStartDateBegin!=null and positionStartDateEnd!=null">
-            AND employee.position_start_date BETWEEN #{positionStartDateBegin} AND #{positionStartDateEnd}
-        </if>
+        select
+        <include refid="Base_Column_List"/>
+        from employee
+        <where>
+            <if test="keywords != null and keywords != ''">
+                and employee.employee_name like concat('%',#{keywords},'%')
+            </if>
+            <if test="employmentForm!=null and employmentForm!=''">
+                AND employee.employment_form=#{employmentForm}
+            </if>
+            <if test="politicalStatusId !=null and politicalStatusId!=''">
+                AND employee.political_status_id=#{politicalStatusId}
+            </if>
+            <if test="nationId!=null and nationId!=''">
+                AND employee.nation_id=#{nationId}
+            </if>
+            <if test="positionId!=null and positionId!=''">
+                AND employee.position_id=#{positionId}
+            </if>
+            <if test="professionalTitleId!=null and professionalTitleId!=''">
+                AND employee.professional_title_id=#{professionalTitleId}
+            </if>
+            <if test="departmentId!=null and departmentId!=''">
+                AND employee.department_id=#{departmentId}
+            </if>
+            <if test="positionStartDateBegin!=null and positionStartDateEnd!=null">
+                AND employee.position_start_date BETWEEN #{positionStartDateBegin} AND #{positionStartDateEnd}
+            </if>
+        </where>
         order by employee.employee_id
     </select>
 

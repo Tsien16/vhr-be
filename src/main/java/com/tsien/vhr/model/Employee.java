@@ -15,6 +15,7 @@ import java.time.LocalDateTime;
 
 @Data
 public class Employee {
+
     /**
      * 员工ID
      */
@@ -51,6 +52,11 @@ public class Employee {
     private Long nationId;
 
     /**
+     * 民族名称
+     */
+    private String nationName;
+
+    /**
      * 籍贯
      */
     private String nativePlace;
@@ -59,6 +65,11 @@ public class Employee {
      * 政治面貌ID
      */
     private Long politicalStatusId;
+
+    /**
+     * 政治面貌名称
+     */
+    private String politicalStatusName;
 
     /**
      * 邮箱
@@ -81,14 +92,29 @@ public class Employee {
     private Long departmentId;
 
     /**
+     * 所在部门名称
+     */
+    private String departmentName;
+
+    /**
      * 职称ID
      */
     private Long professionalTitleId;
 
     /**
+     * 职称名称
+     */
+    private String professionalTitleName;
+
+    /**
      * 职位ID
      */
     private Long positionId;
+
+    /**
+     * 职位名称
+     */
+    private String positionName;
 
     /**
      * 聘用形式
@@ -169,4 +195,9 @@ public class Employee {
      * 更新时间
      */
     private LocalDateTime updateTime;
+
+    /**
+     * 薪水
+     */
+    private Salary salary;
 }
