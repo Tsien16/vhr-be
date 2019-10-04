@@ -2,6 +2,8 @@ package com.tsien.vhr.dao;
 
 import com.tsien.vhr.model.PoliticalStatus;
 
+import java.util.List;
+
 /**
  * Created with IntelliJ IDEA.
  *
@@ -22,4 +24,11 @@ public interface PoliticalStatusDAO {
     int updateByPrimaryKeySelective(PoliticalStatus record);
 
     int updateByPrimaryKey(PoliticalStatus record);
+
+    /**
+     * 查询所有的政治面貌
+     *
+     * @return politicalStatus
+     */
+    List<PoliticalStatus> listPoliticalStatus();
 }

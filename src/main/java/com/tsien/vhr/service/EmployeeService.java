@@ -1,6 +1,8 @@
 package com.tsien.vhr.service;
 
 import com.github.pagehelper.PageInfo;
+import com.tsien.vhr.model.Employee;
+import com.tsien.vhr.util.ServerResponse;
 
 /**
  * Created with IntelliJ IDEA.
@@ -27,10 +29,25 @@ public interface EmployeeService {
      * @param positionStartDateScope positionStartDateScope
      * @return employees
      */
-    PageInfo listEmployees(Integer pageNum,
-                           Integer pageSize,
-                           String keywords,
-                           Long politicalStatusId, Long nationId, Long positionId,
-                           Long professionalTitleId, String employmentForm,
-                           Long departmentId, String positionStartDateScope);
+    ServerResponse<PageInfo> listEmployees(Integer pageNum,
+                                           Integer pageSize,
+                                           String keywords,
+                                           Long politicalStatusId, Long nationId, Long positionId,
+                                           Long professionalTitleId, String employmentForm,
+                                           Long departmentId, String positionStartDateScope);
+
+    /**
+     * 新增员工资料
+     *
+     * @param employee employee
+     * @return serverResponse
+     */
+    ServerResponse insertEmployee(Employee employee);
+
+    /**
+     * 查询当前的最大工号
+     *
+     * @return maxWorkNumber
+     */
+    Long getMaxWorkNumber();
 }

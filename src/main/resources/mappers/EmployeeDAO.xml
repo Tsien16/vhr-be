@@ -95,7 +95,7 @@
         #{positionStartDate,jdbcType=DATE}, #{workingStatus,jdbcType=OTHER}, #{workNumber,jdbcType=CHAR},
         #{contractPeriod,jdbcType=DOUBLE}, #{conversionDate,jdbcType=DATE}, #{dimissionDate,jdbcType=DATE},
         #{contractBegin,jdbcType=DATE}, #{contractEnd,jdbcType=DATE}, #{workAge,jdbcType=INTEGER},
-        #{deleted,jdbcType=BOOLEAN}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+        #{deleted,jdbcType=BOOLEAN}, now(), #{updateTime,jdbcType=TIMESTAMP}
         )
     </insert>
     <insert id="insertSelective" keyColumn="employee_id" keyProperty="employeeId"
@@ -466,7 +466,7 @@
         work_age = #{workAge,jdbcType=INTEGER},
         is_deleted = #{deleted,jdbcType=BOOLEAN},
         create_time = #{createTime,jdbcType=TIMESTAMP},
-        update_time = #{updateTime,jdbcType=TIMESTAMP}
+        update_time = now()
         where employee_id = #{employeeId,jdbcType=BIGINT}
     </update>
 
@@ -501,6 +501,14 @@
             </if>
         </where>
         order by employee.employee_id
+    </select>
+
+    <select id="getMaxWorkNumber" resultType="long">
+        SELECT work_number
+        from employee
+        where employee_id = (
+            select max(employee.employee_id)
+            from employee)
     </select>
 
 </mapper>

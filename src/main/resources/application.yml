@@ -55,9 +55,4 @@ spring:
             class: javax.net.ssl.SSLSocketFactory
         debug: true
 
-
-
-
-
-
   profiles: prod

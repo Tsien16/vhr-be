@@ -27,7 +27,7 @@ public class PoliticalStatus {
     /**
     * 是否逻辑删除，1-表示删除，0-表示未删除
     */
-    private Boolean isDeleted;
+    private Boolean deleted;
 
     /**
     * 创建时间

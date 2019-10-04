@@ -2,6 +2,8 @@ package com.tsien.vhr.dao;
 
 import com.tsien.vhr.model.Position;
 
+import java.util.List;
+
 /**
  * Created with IntelliJ IDEA.
  *
@@ -11,6 +13,7 @@ import com.tsien.vhr.model.Position;
  */
 
 public interface PositionDAO {
+
     int deleteByPrimaryKey(Long positionId);
 
     int insert(Position record);
@@ -22,4 +25,11 @@ public interface PositionDAO {
     int updateByPrimaryKeySelective(Position record);
 
     int updateByPrimaryKey(Position record);
+
+    /**
+     * 查询所有职位
+     *
+     * @return positions
+     */
+    List<Position> listPositions();
 }

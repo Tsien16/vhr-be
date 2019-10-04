@@ -1,96 +1,107 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.tsien.vhr.dao.NationDAO">
-  <resultMap id="BaseResultMap" type="com.tsien.vhr.model.Nation">
-    <!--@mbg.generated-->
-    <!--@Table nation-->
-    <id column="nation_id" jdbcType="BIGINT" property="nationId" />
-    <result column="nation_name" jdbcType="VARCHAR" property="nationName" />
-    <result column="is_deleted" jdbcType="BOOLEAN" property="isDeleted" />
-    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    <!--@mbg.generated-->
-    nation_id, nation_name, is_deleted, create_time, update_time
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    <!--@mbg.generated-->
-    select 
-    <include refid="Base_Column_List" />
-    from nation
-    where nation_id = #{nationId,jdbcType=BIGINT}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-    <!--@mbg.generated-->
-    delete from nation
-    where nation_id = #{nationId,jdbcType=BIGINT}
-  </delete>
-  <insert id="insert" keyColumn="nation_id" keyProperty="nationId" parameterType="com.tsien.vhr.model.Nation" useGeneratedKeys="true">
-    <!--@mbg.generated-->
-    insert into nation (nation_name, is_deleted, create_time, 
-      update_time)
-    values (#{nationName,jdbcType=VARCHAR}, #{isDeleted,jdbcType=BOOLEAN}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{updateTime,jdbcType=TIMESTAMP})
-  </insert>
-  <insert id="insertSelective" keyColumn="nation_id" keyProperty="nationId" parameterType="com.tsien.vhr.model.Nation" useGeneratedKeys="true">
-    <!--@mbg.generated-->
-    insert into nation
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="nationName != null and nationName != ''">
-        nation_name,
-      </if>
-      <if test="isDeleted != null">
-        is_deleted,
-      </if>
-      <if test="createTime != null">
-        create_time,
-      </if>
-      <if test="updateTime != null">
-        update_time,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="nationName != null and nationName != ''">
-        #{nationName,jdbcType=VARCHAR},
-      </if>
-      <if test="isDeleted != null">
-        #{isDeleted,jdbcType=BOOLEAN},
-      </if>
-      <if test="createTime != null">
-        #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null">
-        #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.tsien.vhr.model.Nation">
-    <!--@mbg.generated-->
-    update nation
-    <set>
-      <if test="nationName != null and nationName != ''">
-        nation_name = #{nationName,jdbcType=VARCHAR},
-      </if>
-      <if test="isDeleted != null">
-        is_deleted = #{isDeleted,jdbcType=BOOLEAN},
-      </if>
-      <if test="createTime != null">
+
+    <resultMap id="BaseResultMap" type="com.tsien.vhr.model.Nation">
+        <!--@mbg.generated-->
+        <!--@Table nation-->
+        <id column="nation_id" jdbcType="BIGINT" property="nationId"/>
+        <result column="nation_name" jdbcType="VARCHAR" property="nationName"/>
+        <result column="is_deleted" jdbcType="BOOLEAN" property="deleted"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        <!--@mbg.generated-->
+        nation_id, nation_name, is_deleted, create_time, update_time
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        <!--@mbg.generated-->
+        select
+        <include refid="Base_Column_List"/>
+        from nation
+        where nation_id = #{nationId,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        <!--@mbg.generated-->
+        delete from nation
+        where nation_id = #{nationId,jdbcType=BIGINT}
+    </delete>
+    <insert id="insert" keyColumn="nation_id" keyProperty="nationId" parameterType="com.tsien.vhr.model.Nation"
+            useGeneratedKeys="true">
+        <!--@mbg.generated-->
+        insert into nation (nation_name, is_deleted, create_time,
+        update_time)
+        values (#{nationName,jdbcType=VARCHAR}, #{deleted,jdbcType=BOOLEAN}, #{createTime,jdbcType=TIMESTAMP},
+        #{updateTime,jdbcType=TIMESTAMP})
+    </insert>
+    <insert id="insertSelective" keyColumn="nation_id" keyProperty="nationId" parameterType="com.tsien.vhr.model.Nation"
+            useGeneratedKeys="true">
+        <!--@mbg.generated-->
+        insert into nation
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="nationName != null and nationName != ''">
+                nation_name,
+            </if>
+            <if test="deleted != null">
+                is_deleted,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="nationName != null and nationName != ''">
+                #{nationName,jdbcType=VARCHAR},
+            </if>
+            <if test="deleted != null">
+                #{deleted,jdbcType=BOOLEAN},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.tsien.vhr.model.Nation">
+        <!--@mbg.generated-->
+        update nation
+        <set>
+            <if test="nationName != null and nationName != ''">
+                nation_name = #{nationName,jdbcType=VARCHAR},
+            </if>
+            <if test="deleted != null">
+                is_deleted = #{deleted,jdbcType=BOOLEAN},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where nation_id = #{nationId,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.tsien.vhr.model.Nation">
+        <!--@mbg.generated-->
+        update nation
+        set nation_name = #{nationName,jdbcType=VARCHAR},
+        is_deleted = #{deleted,jdbcType=BOOLEAN},
         create_time = #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null">
-        update_time = #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-    </set>
-    where nation_id = #{nationId,jdbcType=BIGINT}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.tsien.vhr.model.Nation">
-    <!--@mbg.generated-->
-    update nation
-    set nation_name = #{nationName,jdbcType=VARCHAR},
-      is_deleted = #{isDeleted,jdbcType=BOOLEAN},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP}
-    where nation_id = #{nationId,jdbcType=BIGINT}
-  </update>
+        update_time = #{updateTime,jdbcType=TIMESTAMP}
+        where nation_id = #{nationId,jdbcType=BIGINT}
+    </update>
+    <select id="listNations" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from nation
+        where is_deleted=0
+    </select>
 </mapper>

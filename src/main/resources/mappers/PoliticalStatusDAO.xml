@@ -1,96 +1,108 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.tsien.vhr.dao.PoliticalStatusDAO">
-  <resultMap id="BaseResultMap" type="com.tsien.vhr.model.PoliticalStatus">
-    <!--@mbg.generated-->
-    <!--@Table political_status-->
-    <id column="political_status_id" jdbcType="BIGINT" property="politicalStatusId" />
-    <result column="political_status_name" jdbcType="VARCHAR" property="politicalStatusName" />
-    <result column="is_deleted" jdbcType="BOOLEAN" property="isDeleted" />
-    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    <!--@mbg.generated-->
-    political_status_id, political_status_name, is_deleted, create_time, update_time
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    <!--@mbg.generated-->
-    select 
-    <include refid="Base_Column_List" />
-    from political_status
-    where political_status_id = #{politicalStatusId,jdbcType=BIGINT}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-    <!--@mbg.generated-->
-    delete from political_status
-    where political_status_id = #{politicalStatusId,jdbcType=BIGINT}
-  </delete>
-  <insert id="insert" keyColumn="political_status_id" keyProperty="politicalStatusId" parameterType="com.tsien.vhr.model.PoliticalStatus" useGeneratedKeys="true">
-    <!--@mbg.generated-->
-    insert into political_status (political_status_name, is_deleted, create_time, 
-      update_time)
-    values (#{politicalStatusName,jdbcType=VARCHAR}, #{isDeleted,jdbcType=BOOLEAN}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{updateTime,jdbcType=TIMESTAMP})
-  </insert>
-  <insert id="insertSelective" keyColumn="political_status_id" keyProperty="politicalStatusId" parameterType="com.tsien.vhr.model.PoliticalStatus" useGeneratedKeys="true">
-    <!--@mbg.generated-->
-    insert into political_status
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="politicalStatusName != null and politicalStatusName != ''">
-        political_status_name,
-      </if>
-      <if test="isDeleted != null">
-        is_deleted,
-      </if>
-      <if test="createTime != null">
-        create_time,
-      </if>
-      <if test="updateTime != null">
-        update_time,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="politicalStatusName != null and politicalStatusName != ''">
-        #{politicalStatusName,jdbcType=VARCHAR},
-      </if>
-      <if test="isDeleted != null">
-        #{isDeleted,jdbcType=BOOLEAN},
-      </if>
-      <if test="createTime != null">
-        #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null">
-        #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.tsien.vhr.model.PoliticalStatus">
-    <!--@mbg.generated-->
-    update political_status
-    <set>
-      <if test="politicalStatusName != null and politicalStatusName != ''">
-        political_status_name = #{politicalStatusName,jdbcType=VARCHAR},
-      </if>
-      <if test="isDeleted != null">
-        is_deleted = #{isDeleted,jdbcType=BOOLEAN},
-      </if>
-      <if test="createTime != null">
+
+    <resultMap id="BaseResultMap" type="com.tsien.vhr.model.PoliticalStatus">
+        <!--@mbg.generated-->
+        <!--@Table political_status-->
+        <id column="political_status_id" jdbcType="BIGINT" property="politicalStatusId"/>
+        <result column="political_status_name" jdbcType="VARCHAR" property="politicalStatusName"/>
+        <result column="is_deleted" jdbcType="BOOLEAN" property="deleted"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        <!--@mbg.generated-->
+        political_status_id, political_status_name, is_deleted, create_time, update_time
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        <!--@mbg.generated-->
+        select
+        <include refid="Base_Column_List"/>
+        from political_status
+        where political_status_id = #{politicalStatusId,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        <!--@mbg.generated-->
+        delete from political_status
+        where political_status_id = #{politicalStatusId,jdbcType=BIGINT}
+    </delete>
+    <insert id="insert" keyColumn="political_status_id" keyProperty="politicalStatusId"
+            parameterType="com.tsien.vhr.model.PoliticalStatus" useGeneratedKeys="true">
+        <!--@mbg.generated-->
+        insert into political_status (political_status_name, is_deleted, create_time,
+        update_time)
+        values (#{politicalStatusName,jdbcType=VARCHAR}, #{deleted,jdbcType=BOOLEAN}, #{createTime,jdbcType=TIMESTAMP},
+        #{updateTime,jdbcType=TIMESTAMP})
+    </insert>
+    <insert id="insertSelective" keyColumn="political_status_id" keyProperty="politicalStatusId"
+            parameterType="com.tsien.vhr.model.PoliticalStatus" useGeneratedKeys="true">
+        <!--@mbg.generated-->
+        insert into political_status
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="politicalStatusName != null and politicalStatusName != ''">
+                political_status_name,
+            </if>
+            <if test="deleted != null">
+                is_deleted,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="politicalStatusName != null and politicalStatusName != ''">
+                #{politicalStatusName,jdbcType=VARCHAR},
+            </if>
+            <if test="deleted != null">
+                #{deleted,jdbcType=BOOLEAN},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.tsien.vhr.model.PoliticalStatus">
+        <!--@mbg.generated-->
+        update political_status
+        <set>
+            <if test="politicalStatusName != null and politicalStatusName != ''">
+                political_status_name = #{politicalStatusName,jdbcType=VARCHAR},
+            </if>
+            <if test="deleted != null">
+                is_deleted = #{deleted,jdbcType=BOOLEAN},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where political_status_id = #{politicalStatusId,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.tsien.vhr.model.PoliticalStatus">
+        <!--@mbg.generated-->
+        update political_status
+        set political_status_name = #{politicalStatusName,jdbcType=VARCHAR},
+        is_deleted = #{deleted,jdbcType=BOOLEAN},
         create_time = #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null">
-        update_time = #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-    </set>
-    where political_status_id = #{politicalStatusId,jdbcType=BIGINT}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.tsien.vhr.model.PoliticalStatus">
-    <!--@mbg.generated-->
-    update political_status
-    set political_status_name = #{politicalStatusName,jdbcType=VARCHAR},
-      is_deleted = #{isDeleted,jdbcType=BOOLEAN},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP}
-    where political_status_id = #{politicalStatusId,jdbcType=BIGINT}
-  </update>
+        update_time = #{updateTime,jdbcType=TIMESTAMP}
+        where political_status_id = #{politicalStatusId,jdbcType=BIGINT}
+    </update>
+
+    <select id="listPoliticalStatus" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from political_status
+        where is_deleted=0
+    </select>
 </mapper>

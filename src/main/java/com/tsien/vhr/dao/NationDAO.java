@@ -2,6 +2,8 @@ package com.tsien.vhr.dao;
 
 import com.tsien.vhr.model.Nation;
 
+import java.util.List;
+
 /**
  * Created with IntelliJ IDEA.
  *
@@ -11,6 +13,7 @@ import com.tsien.vhr.model.Nation;
  */
 
 public interface NationDAO {
+
     int deleteByPrimaryKey(Long nationId);
 
     int insert(Nation record);
@@ -22,4 +25,11 @@ public interface NationDAO {
     int updateByPrimaryKeySelective(Nation record);
 
     int updateByPrimaryKey(Nation record);
+
+    /**
+     * 查询所有的民族
+     *
+     * @return nations
+     */
+    List<Nation> listNations();
 }

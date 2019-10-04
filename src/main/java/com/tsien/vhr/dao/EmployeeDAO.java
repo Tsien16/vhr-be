@@ -51,4 +51,11 @@ public interface EmployeeDAO {
                                            @Param("departmentId") Long departmentId,
                                            @Param("positionStartDateBegin") LocalDate positionStartDateBegin,
                                            @Param("positionStartDateEnd") LocalDate positionStartDateEnd);
+
+    /**
+     * 查询当前的最大工号
+     *
+     * @return workNumber
+     */
+    Long getMaxWorkNumber();
 }

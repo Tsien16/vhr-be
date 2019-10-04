@@ -2,6 +2,8 @@ package com.tsien.vhr.dao;
 
 import com.tsien.vhr.model.ProfessionalTitle;
 
+import java.util.List;
+
 /**
  * Created with IntelliJ IDEA.
  *
@@ -11,6 +13,7 @@ import com.tsien.vhr.model.ProfessionalTitle;
  */
 
 public interface ProfessionalTitleDAO {
+
     int deleteByPrimaryKey(Long professionalTitleId);
 
     int insert(ProfessionalTitle record);
@@ -22,4 +25,11 @@ public interface ProfessionalTitleDAO {
     int updateByPrimaryKeySelective(ProfessionalTitle record);
 
     int updateByPrimaryKey(ProfessionalTitle record);
+
+    /**
+     * 查询所有的职称
+     *
+     * @return professionalTitles
+     */
+    List<ProfessionalTitle> listProfessionalTitles();
 }

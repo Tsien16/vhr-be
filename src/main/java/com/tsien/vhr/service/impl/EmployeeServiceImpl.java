@@ -6,6 +6,7 @@ import com.tsien.vhr.dao.EmployeeDAO;
 import com.tsien.vhr.model.Employee;
 import com.tsien.vhr.service.EmployeeService;
 import com.tsien.vhr.util.LocalDateUtil;
+import com.tsien.vhr.util.ServerResponse;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -27,12 +28,12 @@ public class EmployeeServiceImpl implements EmployeeService {
     private EmployeeDAO employeeDAO;
 
     @Override
-    public PageInfo listEmployees(Integer pageNum,
-                                  Integer pageSize,
-                                  String keywords,
-                                  Long politicalStatusId, Long nationId, Long positionId,
-                                  Long professionalTitleId, String employmentForm,
-                                  Long departmentId, String positionStartDateScope) {
+    public ServerResponse<PageInfo> listEmployees(Integer pageNum,
+                                                  Integer pageSize,
+                                                  String keywords,
+                                                  Long politicalStatusId, Long nationId, Long positionId,
+                                                  Long professionalTitleId, String employmentForm,
+                                                  Long departmentId, String positionStartDateScope) {
 
         PageHelper.startPage(pageNum, pageSize);
 
@@ -49,7 +50,31 @@ public class EmployeeServiceImpl implements EmployeeService {
                 positionId, professionalTitleId, employmentForm, departmentId, positionStartDateBegin,
                 positionStartDateEnd);
 
-        return new PageInfo<>(employeeList);
+        return ServerResponse.ok(new PageInfo<>(employeeList));
 
     }
+
+    @Override
+    public ServerResponse insertEmployee(Employee employee) {
+
+        if (employee.getEmployeeName() == null) {
+            return ServerResponse.error("添加员工失败");
+        }
+
+        int resultCount = employeeDAO.insert(employee);
+        if (resultCount > 0) {
+            return ServerResponse.ok("新增员工资料成功");
+        }
+
+        return ServerResponse.error("新增员工资料失败");
+
+    }
+
+    @Override
+    public Long getMaxWorkNumber() {
+        Long maxWorkNumber = employeeDAO.getMaxWorkNumber();
+
+        return maxWorkNumber == null ? 0 : maxWorkNumber;
+    }
+
 }

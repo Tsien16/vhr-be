@@ -2,6 +2,8 @@ package com.tsien.vhr.dao;
 
 import com.tsien.vhr.model.Department;
 
+import java.util.List;
+
 /**
  * Created with IntelliJ IDEA.
  *
@@ -22,4 +24,12 @@ public interface DepartmentDAO {
     int updateByPrimaryKeySelective(Department record);
 
     int updateByPrimaryKey(Department record);
+
+    /**
+     * 根据parentId查询部门
+     *
+     * @param parentId parentId
+     * @return departments
+     */
+    List<Department> listDepartmentsByParentId(Long parentId);
 }

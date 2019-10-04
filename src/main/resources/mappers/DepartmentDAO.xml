@@ -1,132 +1,146 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.tsien.vhr.dao.DepartmentDAO">
-  <resultMap id="BaseResultMap" type="com.tsien.vhr.model.Department">
-    <!--@mbg.generated-->
-    <!--@Table department-->
-    <id column="department_id" jdbcType="BIGINT" property="departmentId" />
-    <result column="department_name" jdbcType="VARCHAR" property="departmentName" />
-    <result column="department_level" jdbcType="VARCHAR" property="departmentLevel" />
-    <result column="parent_id" jdbcType="BIGINT" property="parentId" />
-    <result column="is_enabled" jdbcType="BOOLEAN" property="isEnabled" />
-    <result column="is_deleted" jdbcType="BOOLEAN" property="isDeleted" />
-    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    <!--@mbg.generated-->
-    department_id, department_name, department_level, parent_id, is_enabled, is_deleted, 
-    create_time, update_time
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    <!--@mbg.generated-->
-    select 
-    <include refid="Base_Column_List" />
-    from department
-    where department_id = #{departmentId,jdbcType=BIGINT}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-    <!--@mbg.generated-->
-    delete from department
-    where department_id = #{departmentId,jdbcType=BIGINT}
-  </delete>
-  <insert id="insert" keyColumn="department_id" keyProperty="departmentId" parameterType="com.tsien.vhr.model.Department" useGeneratedKeys="true">
-    <!--@mbg.generated-->
-    insert into department (department_name, department_level, 
-      parent_id, is_enabled, is_deleted, 
-      create_time, update_time)
-    values (#{departmentName,jdbcType=VARCHAR}, #{departmentLevel,jdbcType=VARCHAR}, 
-      #{parentId,jdbcType=BIGINT}, #{isEnabled,jdbcType=BOOLEAN}, #{isDeleted,jdbcType=BOOLEAN}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
-  </insert>
-  <insert id="insertSelective" keyColumn="department_id" keyProperty="departmentId" parameterType="com.tsien.vhr.model.Department" useGeneratedKeys="true">
-    <!--@mbg.generated-->
-    insert into department
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="departmentName != null and departmentName != ''">
-        department_name,
-      </if>
-      <if test="departmentLevel != null and departmentLevel != ''">
-        department_level,
-      </if>
-      <if test="parentId != null">
-        parent_id,
-      </if>
-      <if test="isEnabled != null">
-        is_enabled,
-      </if>
-      <if test="isDeleted != null">
-        is_deleted,
-      </if>
-      <if test="createTime != null">
-        create_time,
-      </if>
-      <if test="updateTime != null">
-        update_time,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="departmentName != null and departmentName != ''">
-        #{departmentName,jdbcType=VARCHAR},
-      </if>
-      <if test="departmentLevel != null and departmentLevel != ''">
-        #{departmentLevel,jdbcType=VARCHAR},
-      </if>
-      <if test="parentId != null">
-        #{parentId,jdbcType=BIGINT},
-      </if>
-      <if test="isEnabled != null">
-        #{isEnabled,jdbcType=BOOLEAN},
-      </if>
-      <if test="isDeleted != null">
-        #{isDeleted,jdbcType=BOOLEAN},
-      </if>
-      <if test="createTime != null">
-        #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null">
-        #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.tsien.vhr.model.Department">
-    <!--@mbg.generated-->
-    update department
-    <set>
-      <if test="departmentName != null and departmentName != ''">
-        department_name = #{departmentName,jdbcType=VARCHAR},
-      </if>
-      <if test="departmentLevel != null and departmentLevel != ''">
+
+    <resultMap id="BaseResultMap" type="com.tsien.vhr.model.Department">
+        <!--@mbg.generated-->
+        <!--@Table department-->
+        <id column="department_id" jdbcType="BIGINT" property="departmentId"/>
+        <result column="department_name" jdbcType="VARCHAR" property="departmentName"/>
+        <result column="department_level" jdbcType="VARCHAR" property="departmentLevel"/>
+        <result column="parent_id" jdbcType="BIGINT" property="parentId"/>
+        <result column="is_enabled" jdbcType="BOOLEAN" property="enabled"/>
+        <result column="is_deleted" jdbcType="BOOLEAN" property="deleted"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        <!--@mbg.generated-->
+        department_id, department_name, department_level, parent_id, is_enabled, is_deleted,
+        create_time, update_time
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        <!--@mbg.generated-->
+        select
+        <include refid="Base_Column_List"/>
+        from department
+        where department_id = #{departmentId,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        <!--@mbg.generated-->
+        delete from department
+        where department_id = #{departmentId,jdbcType=BIGINT}
+    </delete>
+    <insert id="insert" keyColumn="department_id" keyProperty="departmentId"
+            parameterType="com.tsien.vhr.model.Department" useGeneratedKeys="true">
+        <!--@mbg.generated-->
+        insert into department (department_name, department_level,
+        parent_id, is_enabled, is_deleted,
+        create_time, update_time)
+        values (#{departmentName,jdbcType=VARCHAR}, #{departmentLevel,jdbcType=VARCHAR},
+        #{parentId,jdbcType=BIGINT}, #{enabled,jdbcType=BOOLEAN}, #{deleted,jdbcType=BOOLEAN},
+        #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+    </insert>
+    <insert id="insertSelective" keyColumn="department_id" keyProperty="departmentId"
+            parameterType="com.tsien.vhr.model.Department" useGeneratedKeys="true">
+        <!--@mbg.generated-->
+        insert into department
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="departmentName != null and departmentName != ''">
+                department_name,
+            </if>
+            <if test="departmentLevel != null and departmentLevel != ''">
+                department_level,
+            </if>
+            <if test="parentId != null">
+                parent_id,
+            </if>
+            <if test="enabled != null">
+                is_enabled,
+            </if>
+            <if test="deleted != null">
+                is_deleted,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="departmentName != null and departmentName != ''">
+                #{departmentName,jdbcType=VARCHAR},
+            </if>
+            <if test="departmentLevel != null and departmentLevel != ''">
+                #{departmentLevel,jdbcType=VARCHAR},
+            </if>
+            <if test="parentId != null">
+                #{parentId,jdbcType=BIGINT},
+            </if>
+            <if test="enabled != null">
+                #{enabled,jdbcType=BOOLEAN},
+            </if>
+            <if test="deleted != null">
+                #{deleted,jdbcType=BOOLEAN},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.tsien.vhr.model.Department">
+        <!--@mbg.generated-->
+        update department
+        <set>
+            <if test="departmentName != null and departmentName != ''">
+                department_name = #{departmentName,jdbcType=VARCHAR},
+            </if>
+            <if test="departmentLevel != null and departmentLevel != ''">
+                department_level = #{departmentLevel,jdbcType=VARCHAR},
+            </if>
+            <if test="parentId != null">
+                parent_id = #{parentId,jdbcType=BIGINT},
+            </if>
+            <if test="enabled != null">
+                is_enabled = #{enabled,jdbcType=BOOLEAN},
+            </if>
+            <if test="deleted != null">
+                is_deleted = #{deleted,jdbcType=BOOLEAN},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where department_id = #{departmentId,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.tsien.vhr.model.Department">
+        <!--@mbg.generated-->
+        update department
+        set department_name = #{departmentName,jdbcType=VARCHAR},
         department_level = #{departmentLevel,jdbcType=VARCHAR},
-      </if>
-      <if test="parentId != null">
         parent_id = #{parentId,jdbcType=BIGINT},
-      </if>
-      <if test="isEnabled != null">
-        is_enabled = #{isEnabled,jdbcType=BOOLEAN},
-      </if>
-      <if test="isDeleted != null">
-        is_deleted = #{isDeleted,jdbcType=BOOLEAN},
-      </if>
-      <if test="createTime != null">
+        is_enabled = #{enabled,jdbcType=BOOLEAN},
+        is_deleted = #{deleted,jdbcType=BOOLEAN},
         create_time = #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null">
-        update_time = #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-    </set>
-    where department_id = #{departmentId,jdbcType=BIGINT}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.tsien.vhr.model.Department">
-    <!--@mbg.generated-->
-    update department
-    set department_name = #{departmentName,jdbcType=VARCHAR},
-      department_level = #{departmentLevel,jdbcType=VARCHAR},
-      parent_id = #{parentId,jdbcType=BIGINT},
-      is_enabled = #{isEnabled,jdbcType=BOOLEAN},
-      is_deleted = #{isDeleted,jdbcType=BOOLEAN},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP}
-    where department_id = #{departmentId,jdbcType=BIGINT}
-  </update>
+        update_time = #{updateTime,jdbcType=TIMESTAMP}
+        where department_id = #{departmentId,jdbcType=BIGINT}
+    </update>
+
+    <select id="listDepartmentsByParentId" parameterType="long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from department
+        where parent_id=#{parentId}
+        and is_enabled=1
+        and is_deleted=0
+    </select>
 </mapper>
