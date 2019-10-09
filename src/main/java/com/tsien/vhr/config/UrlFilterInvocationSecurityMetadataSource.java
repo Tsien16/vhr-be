@@ -33,14 +33,13 @@ public class UrlFilterInvocationSecurityMetadataSource implements FilterInvocati
 
     private AntPathMatcher antPathMatcher = new AntPathMatcher();
 
+
     /**
-     * Accesses the {@code ConfigAttribute}s that apply to a given secure object.
+     * 根据请求的url，从数据库读取分析访问这个url需要哪些权限
      *
-     * @param object the object being secured
-     * @return the attributes that apply to the passed in secured object. Should return an
-     * empty collection if there are no applicable attributes.
-     * @throws IllegalArgumentException if the passed object is not of a type supported by
-     *                                  the <code>SecurityMetadataSource</code> implementation
+     * @param object object
+     * @return 权限集合
+     * @throws IllegalArgumentException IllegalArgumentException
      */
     @Override
     public Collection<ConfigAttribute> getAttributes(Object object) throws IllegalArgumentException {

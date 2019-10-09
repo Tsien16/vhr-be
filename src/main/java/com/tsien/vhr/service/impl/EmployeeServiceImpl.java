@@ -71,6 +71,21 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
+    public ServerResponse updateEmployee(Employee employee) {
+        if (employee.getEmployeeId() == null) {
+            return ServerResponse.error("员工主键为空，更新失败");
+        }
+
+        int resultCount = employeeDAO.updateByPrimaryKeySelective(employee);
+        if (resultCount > 0) {
+            return ServerResponse.ok("更新员工资料成功");
+        }
+
+        return ServerResponse.error("更新员工资料失败");
+
+    }
+
+    @Override
     public Long getMaxWorkNumber() {
         Long maxWorkNumber = employeeDAO.getMaxWorkNumber();
 

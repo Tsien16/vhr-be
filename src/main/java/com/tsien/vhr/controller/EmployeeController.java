@@ -69,7 +69,12 @@ public class EmployeeController {
                 professionalTitleId, employmentForm, departmentId, positionStartDateScope);
     }
 
-
+    /**
+     * 增加员工
+     *
+     * @param employee employee
+     * @return serverResponse
+     */
     @PostMapping(value = "/emp")
     public ServerResponse addEmployee(Employee employee) {
         ServerResponse serverResponse = employeeService.insertEmployee(employee);
@@ -77,6 +82,17 @@ public class EmployeeController {
             executorService.execute(new EmailUtil(employee, javaMailSender, templateEngine, emailAddress));
         }
         return serverResponse;
+    }
+
+    /**
+     * 更新员工资料
+     *
+     * @param employee employee
+     * @return serverResponse
+     */
+    @PutMapping(value = "/emp")
+    public ServerResponse updateEmployee(Employee employee) {
+        return employeeService.updateEmployee(employee);
     }
 
     @GetMapping(value = "/employee_dict")

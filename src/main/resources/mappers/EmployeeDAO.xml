@@ -420,12 +420,7 @@
             <if test="deleted != null">
                 is_deleted = #{deleted,jdbcType=BOOLEAN},
             </if>
-            <if test="createTime != null">
-                create_time = #{createTime,jdbcType=TIMESTAMP},
-            </if>
-            <if test="updateTime != null">
-                update_time = #{updateTime,jdbcType=TIMESTAMP},
-            </if>
+            update_time = now()
         </set>
         where employee_id = #{employeeId,jdbcType=BIGINT}
     </update>

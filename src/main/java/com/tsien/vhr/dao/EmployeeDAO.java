@@ -24,6 +24,12 @@ public interface EmployeeDAO {
 
     Employee selectByPrimaryKey(Long employeeId);
 
+    /**
+     * 通过主键选择性更新员工
+     *
+     * @param record 员工实体
+     * @return 更新成功的行数
+     */
     int updateByPrimaryKeySelective(Employee record);
 
     int updateByPrimaryKey(Employee record);

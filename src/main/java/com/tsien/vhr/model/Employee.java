@@ -1,6 +1,7 @@
 package com.tsien.vhr.model;
 
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -34,6 +35,7 @@ public class Employee {
     /**
      * 出生日期
      */
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate birthday;
 
     /**
@@ -139,6 +141,7 @@ public class Employee {
     /**
      * 入职日期
      */
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate positionStartDate;
 
     /**
@@ -159,21 +162,25 @@ public class Employee {
     /**
      * 转正日期
      */
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate conversionDate;
 
     /**
      * 离职日期
      */
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dimissionDate;
 
     /**
      * 合同起始日期
      */
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate contractBegin;
 
     /**
      * 合同终止日期
      */
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate contractEnd;
 
     /**

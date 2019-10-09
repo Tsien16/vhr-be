@@ -25,17 +25,15 @@ import java.util.Objects;
 @Configuration
 public class UrlAccessDecisionManager implements AccessDecisionManager {
 
+
     /**
-     * Resolves an access control decision for the passed parameters.
+     * 判断用户的权限跟访问url的权限是否一致
      *
-     * @param authentication   the caller invoking the method (not null)
-     * @param object           the secured object being called
-     * @param configAttributes the configuration attributes associated with the secured
-     *                         object being invoked
-     * @throws AccessDeniedException               if access is denied as the authentication does not
-     *                                             hold a required authority or ACL privilege
-     * @throws InsufficientAuthenticationException if access is denied as the
-     *                                             authentication does not provide a sufficient level of trust
+     * @param authentication   保存登录用户的信息
+     * @param object           object
+     * @param configAttributes 登录url需要的权限集合
+     * @throws AccessDeniedException               AccessDeniedException
+     * @throws InsufficientAuthenticationException InsufficientAuthenticationException
      */
     @Override
     public void decide(Authentication authentication, Object object, Collection<ConfigAttribute> configAttributes)

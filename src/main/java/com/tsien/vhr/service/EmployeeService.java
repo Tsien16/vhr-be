@@ -45,6 +45,14 @@ public interface EmployeeService {
     ServerResponse insertEmployee(Employee employee);
 
     /**
+     * 更新员工资料
+     *
+     * @param employee employee
+     * @return serverResponse
+     */
+    ServerResponse updateEmployee(Employee employee);
+
+    /**
      * 查询当前的最大工号
      *
      * @return maxWorkNumber

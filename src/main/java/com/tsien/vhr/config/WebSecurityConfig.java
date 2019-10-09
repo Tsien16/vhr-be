@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tsien.vhr.constant.UrlEnum;
 import com.tsien.vhr.service.UserService;
 import com.tsien.vhr.util.UserUtil;
+import org.springframework.http.MediaType;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.config.annotation.ObjectPostProcessor;
@@ -83,7 +84,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
                                                         AuthenticationException exception) throws IOException,
                             ServletException {
-                        response.setContentType("application/json;charset=utf-8");
+                        response.setContentType(MediaType.APPLICATION_JSON_UTF8_VALUE);
                         PrintWriter printWriter = response.getWriter();
                         StringBuilder stringBuilder = new StringBuilder();
                         stringBuilder.append("{\"status\":\"error\",\"msg\":\"");
@@ -103,7 +104,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             @Override
             public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
                                                 Authentication authentication) throws IOException, ServletException {
-                response.setContentType("application/json;charset=utf-8");
+                response.setContentType(MediaType.APPLICATION_JSON_UTF8_VALUE);
                 PrintWriter printWriter = response.getWriter();
                 ObjectMapper objectMapper = new ObjectMapper();
                 String string =
