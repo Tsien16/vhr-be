@@ -3,6 +3,7 @@ package com.tsien.vhr.config;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tsien.vhr.constant.UrlEnum;
 import com.tsien.vhr.service.UserService;
+import com.tsien.vhr.util.ServerResponse;
 import com.tsien.vhr.util.UserUtil;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -20,6 +21,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 
 import javax.annotation.Resource;
 import javax.servlet.ServletException;
@@ -118,7 +120,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     }
                 })
                 .and()
-                .logout().permitAll()
+                .logout()
+                .logoutSuccessHandler(new LogoutSuccessHandler() {
+                    @Override
+                    public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response,
+                                                Authentication authentication) throws IOException, ServletException {
+                        response.setContentType(MediaType.APPLICATION_JSON_UTF8_VALUE);
+                        PrintWriter printWriter = response.getWriter();
+                        ObjectMapper objectMapper = new ObjectMapper();
+                        printWriter.write(objectMapper.writeValueAsString(ServerResponse.ok("注销成功")));
+                        printWriter.flush();
+                        printWriter.close();
+                    }
+                })
+                .permitAll()
                 .and().csrf().disable().exceptionHandling().accessDeniedHandler(authenticationAccessDeniedHandler);
     }
 }
