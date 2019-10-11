@@ -88,11 +88,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                             ServletException {
                         response.setContentType(MediaType.APPLICATION_JSON_UTF8_VALUE);
                         PrintWriter printWriter = response.getWriter();
-                        ObjectMapper objectMapper = new ObjectMapper();
-                        String string =
-                                "{\"status\":\"success\",\"msg\":" + objectMapper.writeValueAsString(UserUtil
-                                        .getCurrentUser()) + "}";
-                        printWriter.write(string);
+                        printWriter.write(new ObjectMapper().writeValueAsString(ServerResponse.ok("登录成功",
+                                UserUtil.getCurrentUser())));
                         printWriter.flush();
                         printWriter.close();
                     }
@@ -104,17 +101,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                             ServletException {
                         response.setContentType(MediaType.APPLICATION_JSON_UTF8_VALUE);
                         PrintWriter printWriter = response.getWriter();
-                        StringBuilder stringBuilder = new StringBuilder();
-                        stringBuilder.append("{\"status\":\"error\",\"msg\":\"");
+                        String errorMsg = "";
                         if (exception instanceof UsernameNotFoundException || exception instanceof BadCredentialsException) {
-                            stringBuilder.append("用户名或密码输入错误，登录失败!");
+                            errorMsg = "用户名或密码输入错误，登录失败!";
                         } else if (exception instanceof DisabledException) {
-                            stringBuilder.append("账户被禁用，登录失败，请联系管理员!");
+                            errorMsg = "账户被禁用，登录失败，请联系管理员!";
                         } else {
-                            stringBuilder.append("登录失败!");
+                            errorMsg = "登录失败!";
                         }
-                        stringBuilder.append("\"}");
-                        printWriter.write(stringBuilder.toString());
+                        printWriter.write(new ObjectMapper().writeValueAsString(ServerResponse.error(errorMsg)));
                         printWriter.flush();
                         printWriter.close();
                     }
