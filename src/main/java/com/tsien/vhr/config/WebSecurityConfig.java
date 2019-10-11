@@ -74,11 +74,27 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 })
                 .and()
                 .formLogin()
-//                .loginPage(UrlEnum.LOGIN_URL.getUrl())
+                .loginPage(UrlEnum.LOGIN_URL.getUrl())
                 .loginProcessingUrl(UrlEnum.Login_Processing_Url.getUrl())
                 .usernameParameter("username")
                 .passwordParameter("password")
                 .permitAll()
+                .successHandler(new AuthenticationSuccessHandler() {
+                    @Override
+                    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
+                                                        Authentication authentication) throws IOException,
+                            ServletException {
+                        response.setContentType(MediaType.APPLICATION_JSON_UTF8_VALUE);
+                        PrintWriter printWriter = response.getWriter();
+                        ObjectMapper objectMapper = new ObjectMapper();
+                        String string =
+                                "{\"status\":\"success\",\"msg\":" + objectMapper.writeValueAsString(UserUtil
+                                        .getCurrentUser()) + "}";
+                        printWriter.write(string);
+                        printWriter.flush();
+                        printWriter.close();
+                    }
+                })
                 .failureHandler(new AuthenticationFailureHandler() {
                     @Override
                     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
@@ -100,21 +116,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         printWriter.flush();
                         printWriter.close();
                     }
-                }).successHandler(new AuthenticationSuccessHandler() {
-            @Override
-            public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
-                                                Authentication authentication) throws IOException, ServletException {
-                response.setContentType(MediaType.APPLICATION_JSON_UTF8_VALUE);
-                PrintWriter printWriter = response.getWriter();
-                ObjectMapper objectMapper = new ObjectMapper();
-                String string =
-                        "{\"status\":\"success\",\"msg\":" + objectMapper.writeValueAsString(UserUtil
-                                .getCurrentUser()) + "}";
-                printWriter.write(string);
-                printWriter.flush();
-                printWriter.close();
-            }
-        })
+                })
                 .and()
                 .logout().permitAll()
                 .and().csrf().disable().exceptionHandling().accessDeniedHandler(authenticationAccessDeniedHandler);
