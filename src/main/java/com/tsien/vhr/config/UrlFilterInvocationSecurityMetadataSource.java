@@ -63,7 +63,11 @@ public class UrlFilterInvocationSecurityMetadataSource implements FilterInvocati
             }
         }
 
-        // 没有匹配上的资源，都是登录访问
+        /*
+        没有匹配上的资源，都是登录访问
+        这边这是做个ROLE_LOGIN的权限标记
+        需要在下一步（UrlAccessDecisionManager）里做判断的
+         */
         return SecurityConfig.createList(RoleEnum.ROLE_LOGIN.getRoleName());
     }
 
