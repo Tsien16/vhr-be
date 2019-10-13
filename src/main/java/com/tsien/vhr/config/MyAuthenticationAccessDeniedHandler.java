@@ -24,7 +24,7 @@ import java.io.PrintWriter;
  */
 
 @Configuration
-public class AuthenticationAccessDeniedHandler implements AccessDeniedHandler {
+public class MyAuthenticationAccessDeniedHandler implements AccessDeniedHandler {
     /**
      * Handles an access denied failure.
      *

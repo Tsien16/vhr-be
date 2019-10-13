@@ -1,34 +1,17 @@
 package com.tsien.vhr.config;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tsien.vhr.constant.UrlEnum;
 import com.tsien.vhr.service.UserService;
-import com.tsien.vhr.util.ServerResponse;
-import com.tsien.vhr.util.UserUtil;
-import org.springframework.http.MediaType;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.config.annotation.ObjectPostProcessor;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
-import org.springframework.security.web.authentication.AuthenticationFailureHandler;
-import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
-import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 
 import javax.annotation.Resource;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.io.PrintWriter;
 
 /**
  * Created with IntelliJ IDEA.
@@ -51,7 +34,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private UrlAccessDecisionManager urlAccessDecisionManager;
 
     @Resource
-    private AuthenticationAccessDeniedHandler authenticationAccessDeniedHandler;
+    private MyAuthenticationAccessDeniedHandler myAuthenticationAccessDeniedHandler;
+
+    @Resource
+    private MyAuthenticationSuccessHandler myAuthenticationSuccessHandler;
+
+    @Resource
+    private MyAuthenticationFailureHandler myAuthenticationFailureHandler;
+
+    @Resource
+    private MyLogoutSuccessHandler myLogoutSuccessHandler;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -81,54 +73,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .usernameParameter("username")
                 .passwordParameter("password")
                 .permitAll()
-                .successHandler(new AuthenticationSuccessHandler() {
-                    @Override
-                    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
-                                                        Authentication authentication) throws IOException,
-                            ServletException {
-                        response.setContentType(MediaType.APPLICATION_JSON_UTF8_VALUE);
-                        PrintWriter printWriter = response.getWriter();
-                        printWriter.write(new ObjectMapper().writeValueAsString(ServerResponse.ok("登录成功",
-                                UserUtil.getCurrentUser())));
-                        printWriter.flush();
-                        printWriter.close();
-                    }
-                })
-                .failureHandler(new AuthenticationFailureHandler() {
-                    @Override
-                    public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
-                                                        AuthenticationException exception) throws IOException,
-                            ServletException {
-                        response.setContentType(MediaType.APPLICATION_JSON_UTF8_VALUE);
-                        PrintWriter printWriter = response.getWriter();
-                        String errorMsg = "";
-                        if (exception instanceof UsernameNotFoundException || exception instanceof BadCredentialsException) {
-                            errorMsg = "用户名或密码输入错误，登录失败!";
-                        } else if (exception instanceof DisabledException) {
-                            errorMsg = "账户被禁用，登录失败，请联系管理员!";
-                        } else {
-                            errorMsg = "登录失败!";
-                        }
-                        printWriter.write(new ObjectMapper().writeValueAsString(ServerResponse.error(errorMsg)));
-                        printWriter.flush();
-                        printWriter.close();
-                    }
-                })
+                .successHandler(myAuthenticationSuccessHandler)
+                .failureHandler(myAuthenticationFailureHandler)
                 .and()
                 .logout()
-                .logoutSuccessHandler(new LogoutSuccessHandler() {
-                    @Override
-                    public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response,
-                                                Authentication authentication) throws IOException, ServletException {
-                        response.setContentType(MediaType.APPLICATION_JSON_UTF8_VALUE);
-                        PrintWriter printWriter = response.getWriter();
-                        ObjectMapper objectMapper = new ObjectMapper();
-                        printWriter.write(objectMapper.writeValueAsString(ServerResponse.ok("注销成功")));
-                        printWriter.flush();
-                        printWriter.close();
-                    }
-                })
+                .logoutSuccessHandler(myLogoutSuccessHandler)
                 .permitAll()
-                .and().csrf().disable().exceptionHandling().accessDeniedHandler(authenticationAccessDeniedHandler);
+                .and().csrf().disable().exceptionHandling()
+                .accessDeniedHandler(myAuthenticationAccessDeniedHandler);
     }
 }
