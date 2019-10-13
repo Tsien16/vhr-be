@@ -45,6 +45,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Resource
     private MyLogoutSuccessHandler myLogoutSuccessHandler;
 
+    @Resource
+    private MyAuthenticationEntryPoint myAuthenticationEntryPoint;
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userService).passwordEncoder(new BCryptPasswordEncoder());
@@ -80,6 +83,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutSuccessHandler(myLogoutSuccessHandler)
                 .permitAll()
                 .and().csrf().disable().exceptionHandling()
+                .authenticationEntryPoint(myAuthenticationEntryPoint)
                 .accessDeniedHandler(myAuthenticationAccessDeniedHandler);
     }
 }
