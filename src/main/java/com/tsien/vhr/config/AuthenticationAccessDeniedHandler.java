@@ -1,7 +1,10 @@
 package com.tsien.vhr.config;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.tsien.vhr.util.ServerResponse;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.web.access.AccessDeniedHandler;
 
@@ -36,9 +39,11 @@ public class AuthenticationAccessDeniedHandler implements AccessDeniedHandler {
                        AccessDeniedException accessDeniedException) throws IOException, ServletException {
 
         response.setStatus(HttpStatus.FORBIDDEN.value());
-        response.setCharacterEncoding("UTF-8");
+        response.setContentType(MediaType.APPLICATION_JSON_UTF8_VALUE);
         PrintWriter printWriter = response.getWriter();
-        printWriter.write(("{\"status\":\"error\",\"msg\":\"权限不足，请联系管理员!\"}"));
+        printWriter.write(new ObjectMapper().writeValueAsString(ServerResponse.errorCodeMessage(HttpStatus.FORBIDDEN.value(),
+                "权限不足，访问被拒绝"
+        )));
         printWriter.flush();
         printWriter.close();
     }
