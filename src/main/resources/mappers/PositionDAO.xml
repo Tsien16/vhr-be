@@ -63,10 +63,10 @@
                 #{deleted,jdbcType=BOOLEAN},
             </if>
             <if test="createTime != null">
-                #{createTime,jdbcType=TIMESTAMP},
+                now(),
             </if>
             <if test="updateTime != null">
-                #{updateTime,jdbcType=TIMESTAMP},
+                now(),
             </if>
         </trim>
     </insert>
@@ -84,7 +84,7 @@
                 create_time = #{createTime,jdbcType=TIMESTAMP},
             </if>
             <if test="updateTime != null">
-                update_time = #{updateTime,jdbcType=TIMESTAMP},
+                update_time=now()
             </if>
         </set>
         where position_id = #{positionId,jdbcType=BIGINT}
@@ -105,5 +105,21 @@
         from position
         where is_deleted=0
     </select>
+
+    <select id="getPositionByPositionName" parameterType="string" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from position
+        where position_name=#{positionName}
+        and is_deleted=0
+    </select>
+
+    <delete id="deletePositionsByIds" parameterType="string">
+        delete from position
+        where position_id in
+        <foreach collection="array" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </delete>
 
 </mapper>

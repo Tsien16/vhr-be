@@ -18,10 +18,22 @@ public interface ProfessionalTitleDAO {
 
     int insert(ProfessionalTitle record);
 
+    /**
+     * 有选择的新增职称
+     *
+     * @param record record
+     * @return 增加的行数
+     */
     int insertSelective(ProfessionalTitle record);
 
     ProfessionalTitle selectByPrimaryKey(Long professionalTitleId);
 
+    /**
+     * 根据主键，选择性更新
+     *
+     * @param record record
+     * @return 更新的行数
+     */
     int updateByPrimaryKeySelective(ProfessionalTitle record);
 
     int updateByPrimaryKey(ProfessionalTitle record);
@@ -32,4 +44,20 @@ public interface ProfessionalTitleDAO {
      * @return professionalTitles
      */
     List<ProfessionalTitle> listProfessionalTitles();
+
+    /**
+     * 根据职称名称查询职称
+     *
+     * @param professionalTitleName professionalTitleName
+     * @return ProfessionalTitle
+     */
+    ProfessionalTitle getProfessionalTitleByProfessionalTitleName(String professionalTitleName);
+
+    /**
+     * 根据ID批量删除职称
+     *
+     * @param professionalTitlesIdArray professionalTitlesIdArray
+     * @return 删除的行数
+     */
+    int deleteProfessionalTitlesByIds(String[] professionalTitlesIdArray);
 }

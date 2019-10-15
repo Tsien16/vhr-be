@@ -21,4 +21,29 @@ public interface PositionService {
      * @return positions
      */
     ServerResponse<List<Position>> listPositions();
+
+    /**
+     * 增加职位
+     *
+     * @param positionName positionName
+     * @return 结果
+     */
+    ServerResponse addPosition(String positionName);
+
+    /**
+     * 根据ids删除职位
+     *
+     * @param ids ids
+     * @return 删除的结果
+     */
+    ServerResponse deletePositionsByIds(String ids);
+
+    /**
+     * 根据职位ID更新职位名称
+     *
+     * @param positionId   positionId
+     * @param positionName positionName
+     * @return 更新的结果
+     */
+    ServerResponse updatePositionById(Long positionId, String positionName);
 }

@@ -70,10 +70,10 @@
                 #{deleted,jdbcType=BOOLEAN},
             </if>
             <if test="createTime != null">
-                #{createTime,jdbcType=TIMESTAMP},
+                now(),
             </if>
             <if test="updateTime != null">
-                #{updateTime,jdbcType=TIMESTAMP},
+                now(),
             </if>
         </trim>
     </insert>
@@ -94,7 +94,7 @@
                 create_time = #{createTime,jdbcType=TIMESTAMP},
             </if>
             <if test="updateTime != null">
-                update_time = #{updateTime,jdbcType=TIMESTAMP},
+                update_time = now(),
             </if>
         </set>
         where professional_title_id = #{professionalTitleId,jdbcType=BIGINT}
@@ -116,5 +116,21 @@
         from professional_title
         where is_deleted=0
     </select>
+
+    <select id="getProfessionalTitleByProfessionalTitleName" parameterType="string" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from professional_title
+        where name=#{professionalTitleName}
+        and is_deleted=0
+    </select>
+
+    <delete id="deleteProfessionalTitlesByIds" parameterType="string">
+        delete from professional_title
+        where professional_title_id in
+        <foreach collection="array" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </delete>
 
 </mapper>

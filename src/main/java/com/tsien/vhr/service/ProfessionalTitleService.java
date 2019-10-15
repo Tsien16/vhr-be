@@ -21,4 +21,33 @@ public interface ProfessionalTitleService {
      * @return professionalTitles
      */
     ServerResponse<List<ProfessionalTitle>> listProfessionalTitles();
+
+
+    /**
+     * 插入职称
+     *
+     * @param professionalTitleName  professionalTitleName
+     * @param professionalTitleLevel professionalTitleLevel
+     * @return 插入的结果
+     */
+    ServerResponse addProfessionalTitle(String professionalTitleName, String professionalTitleLevel);
+
+    /**
+     * 根据ID删除职称
+     *
+     * @param ids ids
+     * @return 删除的结果
+     */
+    ServerResponse deleteProfessionalTitlesByIds(String ids);
+
+    /**
+     * 根据主键更新职称
+     *
+     * @param professionalTitleId    professionalTitleId
+     * @param professionalTitleName  professionalTitleName
+     * @param professionalTitleLevel professionalTitleLevel
+     * @return 更新的结果
+     */
+    ServerResponse updateProfessionalTitleById(Long professionalTitleId, String professionalTitleName,
+                                               String professionalTitleLevel);
 }
