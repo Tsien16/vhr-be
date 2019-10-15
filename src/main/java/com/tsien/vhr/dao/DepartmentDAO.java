@@ -1,6 +1,7 @@
 package com.tsien.vhr.dao;
 
 import com.tsien.vhr.model.Department;
+import com.tsien.vhr.vo.DepartmentVO;
 
 import java.util.List;
 
@@ -26,10 +27,33 @@ public interface DepartmentDAO {
     int updateByPrimaryKey(Department record);
 
     /**
+     * 查询所有的部门
+     *
+     * @return departmentList
+     */
+    List<Department> listDepartments();
+
+    /**
      * 根据parentId查询部门
      *
      * @param parentId parentId
      * @return departments
      */
     List<Department> listDepartmentsByParentId(Long parentId);
+
+    /**
+     * 根据parentId查询部门树
+     *
+     * @param parentId parentId
+     * @return 部门树
+     */
+    List<DepartmentVO> listDepartmentTreeByParentId(Long parentId);
+
+    /**
+     * 根据当前部门的parentId，查询上级部门的级别
+     *
+     * @param parentId parentId
+     * @return departmentLevel
+     */
+    Integer getParentDepartmentLevelByParentId(Long parentId);
 }

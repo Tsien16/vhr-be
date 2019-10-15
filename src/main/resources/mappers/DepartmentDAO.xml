@@ -7,12 +7,22 @@
         <!--@Table department-->
         <id column="department_id" jdbcType="BIGINT" property="departmentId"/>
         <result column="department_name" jdbcType="VARCHAR" property="departmentName"/>
-        <result column="department_level" jdbcType="VARCHAR" property="departmentLevel"/>
+        <result column="department_level" jdbcType="INTEGER" property="departmentLevel"/>
         <result column="parent_id" jdbcType="BIGINT" property="parentId"/>
         <result column="is_enabled" jdbcType="BOOLEAN" property="enabled"/>
         <result column="is_deleted" jdbcType="BOOLEAN" property="deleted"/>
         <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
         <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+
+    <!-- 配置查询部门树，一层一层递归，只需要配置自己查询自己即可-->
+    <resultMap id="DepartmentVOResultMap" type="com.tsien.vhr.vo.DepartmentVO">
+        <id column="department_id" jdbcType="BIGINT" property="departmentId"/>
+        <result column="department_name" jdbcType="VARCHAR" property="departmentName"/>
+        <result column="department_level" jdbcType="VARCHAR" property="departmentLevel"/>
+        <result column="parent_id" jdbcType="BIGINT" property="parentId"/>
+        <collection property="children" ofType="com.tsien.vhr.vo.DepartmentVO"
+                    select="listDepartmentTreeByParentId" column="department_id"/>
     </resultMap>
 
     <sql id="Base_Column_List">
@@ -41,7 +51,7 @@
         create_time, update_time)
         values (#{departmentName,jdbcType=VARCHAR}, #{departmentLevel,jdbcType=VARCHAR},
         #{parentId,jdbcType=BIGINT}, #{enabled,jdbcType=BOOLEAN}, #{deleted,jdbcType=BOOLEAN},
-        #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+        now(), now())
     </insert>
     <insert id="insertSelective" keyColumn="department_id" keyProperty="departmentId"
             parameterType="com.tsien.vhr.model.Department" useGeneratedKeys="true">
@@ -135,11 +145,37 @@
         where department_id = #{departmentId,jdbcType=BIGINT}
     </update>
 
+    <select id="listDepartments" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from department
+        where is_deleted=0
+        and is_enabled =1
+    </select>
+
     <select id="listDepartmentsByParentId" parameterType="long" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
         from department
         where parent_id=#{parentId}
+        and is_enabled=1
+        and is_deleted=0
+    </select>
+
+    <select id="listDepartmentTreeByParentId" parameterType="long" resultMap="DepartmentVOResultMap">
+        select department_id,
+        department_name,
+        department_level,
+        parent_id
+        from department
+        where parent_id = #{parentId}
+        and is_enabled = 1
+        and is_deleted = 0
+    </select>
+
+    <select id="getParentDepartmentLevelByParentId" parameterType="long" resultType="integer">
+        select department_level from department
+        where department_id=#{parentId}
         and is_enabled=1
         and is_deleted=0
     </select>
