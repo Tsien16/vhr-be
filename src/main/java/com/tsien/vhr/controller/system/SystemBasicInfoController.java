@@ -3,15 +3,16 @@ package com.tsien.vhr.controller.system;
 import com.tsien.vhr.model.Department;
 import com.tsien.vhr.model.Position;
 import com.tsien.vhr.model.ProfessionalTitle;
-import com.tsien.vhr.service.DepartmentService;
-import com.tsien.vhr.service.PositionService;
-import com.tsien.vhr.service.ProfessionalTitleService;
+import com.tsien.vhr.service.*;
 import com.tsien.vhr.util.ServerResponse;
 import com.tsien.vhr.vo.DepartmentVO;
+import com.tsien.vhr.vo.ResourceVO;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created with IntelliJ IDEA.
@@ -33,6 +34,15 @@ public class SystemBasicInfoController {
 
     @Resource
     private ProfessionalTitleService professionalTitleService;
+
+    @Resource
+    private RoleService roleService;
+
+    @Resource
+    private ResourceService resourceService;
+
+    @Resource
+    private ResourceRoleRelationService resourceRoleRelationService;
 
     /**
      * 根据parentId查询部门树
@@ -176,5 +186,64 @@ public class SystemBasicInfoController {
                 professionalTitleName, professionalTitleLevel);
     }
 
+    /**
+     * 查询所有角色
+     *
+     * @return roles
+     */
+    @GetMapping("role")
+    public ServerResponse listRoles() {
+        return roleService.listRoles();
+    }
+
+    /**
+     * 增加角色
+     *
+     * @return roles
+     */
+    @PostMapping("role")
+    public ServerResponse addRole(@RequestParam(value = "roleName") String roleName,
+                                  @RequestParam(value = "chineseName") String chineseName) {
+        return roleService.addRole(roleName, chineseName);
+    }
+
+    /**
+     * 删除角色
+     *
+     * @return roles
+     */
+    @DeleteMapping("role")
+    public ServerResponse deleteRole(@RequestParam(value = "roleId") String roleId) {
+        return roleService.removeRole(Long.valueOf(roleId));
+    }
+
+    /**
+     * 查询资源树
+     *
+     * @param roleId roleId
+     * @return 资源树
+     */
+    @GetMapping("resourceTree")
+    public ServerResponse getResourceTree(@RequestParam("roleId") String roleId,
+                                          @RequestParam(value = "parentId", defaultValue = "0") String parentId) {
+        Map<String, Object> map = new HashMap<>(2);
+        List<ResourceVO> resourcesTree = resourceService.listResourcesTree(Long.valueOf(parentId));
+        List<Long> resourceIdList = resourceService.listResourceIdsByRoleId(Long.valueOf(roleId));
+        map.put("resourcesTree", resourcesTree);
+        map.put("resourceIdList", resourceIdList);
+        return ServerResponse.ok(map);
+    }
+
+    /**
+     * 更新角色域资源的关联关系
+     *
+     * @param roleId         roleId
+     * @param resourceIdList resourceIdList
+     * @return 更新的结果
+     */
+    @PutMapping("/resourceRole")
+    public ServerResponse updateRoleResource(Long roleId, Long[] resourceIdList) {
+        return resourceRoleRelationService.updateResourceRole(roleId, resourceIdList);
+    }
 
 }

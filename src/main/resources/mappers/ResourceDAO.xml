@@ -35,16 +35,19 @@
             <result column="children_require_auth" jdbcType="BOOLEAN" property="requireAuth"/>
         </collection>
     </resultMap>
-    <resultMap id="GrandchildrenResultMap" type="com.tsien.vhr.model.Resource" extends="ChildrenResultMap">
-        <collection property="subordinateResources" ofType="com.tsien.vhr.model.Resource">
-            <id column="grandchildren_resource_id" jdbcType="BIGINT" property="resourceId"/>
-            <result column="grandchildren_name" jdbcType="VARCHAR" property="name"/>
-        </collection>
+
+    <resultMap id="ResourceTreeMap" type="com.tsien.vhr.vo.ResourceVO">
+        <!--@mbg.generated-->
+        <!--@Table resource-->
+        <id column="resource_id" jdbcType="BIGINT" property="resourceId"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="parent_id" jdbcType="BIGINT" property="parentId"/>
+        <collection property="children" ofType="com.tsien.vhr.vo.ResourceVO"
+                    select="listResourcesTreeByParentId" column="resource_id"/>
     </resultMap>
 
 
     <!-- 查询下级资源 -->
-
 
     <sql id="Base_Column_List">
         <!--@mbg.generated-->
@@ -264,18 +267,12 @@
         children_resource.resource_id
     </select>
 
-    <select id="listResourcesTree" resultMap="GrandchildrenResultMap">
+    <select id="listResourcesTreeByParentId" resultMap="ResourceTreeMap">
         select resource.resource_id,
-               resource.name,
-               children.resource_id      as children_resource_id,
-               children.name             as children_name,
-               grandchildren.resource_id as grandchildren_resource_id,
-               grandchildren.name        as grandchildren_name
-        from resource,
-             resource children,
-             resource grandchildren
-        where resource.resource_id = children.parent_id
-          and children.resource_id = grandchildren.parent_id
-          and grandchildren.is_enabled = 1;
+        resource.name,
+        resource.parent_id
+        from resource
+        where parent_id = #{parentId}
+        and resource.is_enabled = 1;
     </select>
 </mapper>

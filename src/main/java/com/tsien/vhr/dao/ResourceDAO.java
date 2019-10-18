@@ -1,6 +1,7 @@
 package com.tsien.vhr.dao;
 
 import com.tsien.vhr.model.Resource;
+import com.tsien.vhr.vo.ResourceVO;
 
 import java.util.List;
 
@@ -50,11 +51,13 @@ public interface ResourceDAO {
      */
     List<Resource> listResourcesByUserId(Long userId);
 
+
     /**
      * 查询资源树
      *
+     * @param parentId parentId
      * @return resourcesTree
      */
-    List<Resource> listResourcesTree();
+    List<ResourceVO> listResourcesTreeByParentId(Long parentId);
 
 }

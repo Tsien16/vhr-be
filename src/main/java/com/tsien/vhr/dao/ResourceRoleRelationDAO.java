@@ -1,6 +1,7 @@
 package com.tsien.vhr.dao;
 
 import com.tsien.vhr.model.ResourceRoleRelation;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -33,4 +34,21 @@ public interface ResourceRoleRelationDAO {
      * @return resources
      */
     List<Long> listResourceIdsByRoleId(Long roleId);
+
+    /**
+     * 通过角色ID删除关联关系
+     *
+     * @param roleId roleId
+     * @return 删除的条数
+     */
+    int deleteByRoleId(Long roleId);
+
+    /**
+     * 插入关联关系
+     *
+     * @param roleId      roleId
+     * @param resourceIds resourceIds
+     * @return 插入的行数
+     */
+    int insertByRoleIdAndResourceIds(@Param("roleId") Long roleId, @Param("resourceIds") Long[] resourceIds);
 }

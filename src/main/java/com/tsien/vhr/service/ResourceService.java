@@ -1,6 +1,7 @@
 package com.tsien.vhr.service;
 
 import com.tsien.vhr.model.Resource;
+import com.tsien.vhr.vo.ResourceVO;
 
 import java.util.List;
 
@@ -32,7 +33,16 @@ public interface ResourceService {
     /**
      * 查询资源树
      *
+     * @param parentId parentId
      * @return resources
      */
-    List<Resource> listResourcesTree();
+    List<ResourceVO> listResourcesTree(Long parentId);
+
+    /**
+     * 根据权限ID查询资源ID
+     *
+     * @param roleId roleId
+     * @return resourceIds
+     */
+    List<Long> listResourceIdsByRoleId(Long roleId);
 }

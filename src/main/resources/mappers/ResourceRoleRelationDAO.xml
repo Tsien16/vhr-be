@@ -75,4 +75,16 @@
     <select id="listResourceIdsByRoleId" parameterType="long" resultType="long">
         select resource_id from resource_role_relation where role_id=#{roleId}
     </select>
+
+    <delete id="deleteByRoleId" parameterType="long">
+        delete from resource_role_relation
+        where role_id=#{roleId}
+    </delete>
+
+    <insert id="insertByRoleIdAndResourceIds" parameterType="map">
+        INSERT INTO resource_role_relation(resource_id,role_id) VALUES
+        <foreach collection="resourceIds" item="resourceId" separator=",">
+            (#{resourceId},#{roleId})
+        </foreach>
+    </insert>
 </mapper>

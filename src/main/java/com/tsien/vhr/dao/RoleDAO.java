@@ -41,4 +41,27 @@ public interface RoleDAO {
     int updateByPrimaryKeySelective(Role record);
 
     int updateByPrimaryKey(Role record);
+
+    /**
+     * 获取角色
+     *
+     * @return roleList
+     */
+    List<Role> listRoles();
+
+    /**
+     * 根据角色名称查询角色
+     *
+     * @param roleName roleName
+     * @return role
+     */
+    Role getRoleByRoleName(String roleName);
+
+    /**
+     * 根据角色中文名称查询角色
+     *
+     * @param chineseName roleName
+     * @return role
+     */
+    Role getRoleByChineseName(String chineseName);
 }

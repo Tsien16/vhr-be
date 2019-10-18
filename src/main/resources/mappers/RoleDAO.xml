@@ -139,4 +139,27 @@
         and rrr.resource_id=#{resourceId}
         and role.is_deleted = 0
     </select>
+
+    <select id="listRoles" resultMap="SimplifyResultMap">
+        select
+        <include refid="Simplify_Column_List"/>
+        from role
+        where is_deleted=0
+    </select>
+
+    <select id="getRoleByRoleName" parameterType="string" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from role
+        where role_name=#{roleName}
+        and is_deleted=0
+    </select>
+
+    <select id="getRoleByChineseName" parameterType="string" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from role
+        where chinese_name=#{chineseName}
+        and is_deleted=0
+    </select>
 </mapper>

@@ -1,5 +1,7 @@
 package com.tsien.vhr.service;
 
+import com.tsien.vhr.util.ServerResponse;
+
 import java.util.List;
 
 /**
@@ -19,4 +21,13 @@ public interface ResourceRoleRelationService {
      * @return resources
      */
     List<Long> listResourceIdsByRoleId(Long roleId);
+
+    /**
+     * 更新资源与角色的关系
+     *
+     * @param roleId         roleId
+     * @param resourceIdList resourceIdList
+     * @return 更新的结果
+     */
+    ServerResponse updateResourceRole(Long roleId, Long[] resourceIdList);
 }
