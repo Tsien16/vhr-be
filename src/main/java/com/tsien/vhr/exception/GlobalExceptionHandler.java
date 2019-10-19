@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.HashMap;
@@ -47,8 +48,10 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(NoHandlerFoundException.class)
     public ServerResponse<Map<Object, Object>> noHandlerFoundExceptionHandler(HttpServletRequest request,
+                                                                              HttpServletResponse response,
                                                                               NoHandlerFoundException e) {
 
+        response.setStatus(HttpStatus.NOT_FOUND.value());
         String requestMethod = request.getMethod();
         String requestUri = request.getRequestURI();
         Map<Object, Object> map = new HashMap<>(2);
