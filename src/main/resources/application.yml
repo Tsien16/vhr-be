@@ -15,11 +15,16 @@ pagehelper:
 logging:
   level:
     com.tsien.vhr: info
-  path: ./logs
+  file:
+    path: ./logs
 
 spring:
   profiles:
     active: prod
+  mvc:
+    throw-exception-if-no-handler-found: true
+  resources:
+    add-mappings: false
 
 ---
 spring:
