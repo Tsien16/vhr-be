@@ -3,6 +3,7 @@ package com.tsien.vhr.config;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tsien.vhr.util.ServerResponse;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.InsufficientAuthenticationException;
 import org.springframework.security.core.AuthenticationException;
@@ -48,11 +49,15 @@ public class MyAuthenticationEntryPoint implements AuthenticationEntryPoint {
         response.setContentType(MediaType.APPLICATION_JSON_UTF8_VALUE);
         PrintWriter printWriter = response.getWriter();
         String errorMsg = "";
+
+        // InsufficientAuthenticationException 认证信息不全异常
         if (authException instanceof InsufficientAuthenticationException) {
             errorMsg = "请求失败，请联系管理员";
         } else {
             errorMsg = "访问失败!";
         }
+        response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
+
         printWriter.write(new ObjectMapper().writeValueAsString(ServerResponse.error(errorMsg)));
         printWriter.flush();
         printWriter.close();
