@@ -1,6 +1,6 @@
 package com.tsien.vhr.config;
 
-import com.tsien.vhr.constant.RoleEnum;
+import com.tsien.vhr.constant.Const;
 import com.tsien.vhr.model.Role;
 import com.tsien.vhr.service.ResourceService;
 import org.springframework.context.annotation.Configuration;
@@ -63,7 +63,7 @@ public class UrlFilterInvocationSecurityMetadataSource implements FilterInvocati
         这边这是做个ROLE_LOGIN的权限标记
         需要在下一步（UrlAccessDecisionManager）里做判断的
          */
-        return SecurityConfig.createList(RoleEnum.ROLE_LOGIN.getRoleName());
+        return SecurityConfig.createList(Const.ROLE_LOGIN);
     }
 
     /**

@@ -1,6 +1,6 @@
 package com.tsien.vhr.config;
 
-import com.tsien.vhr.constant.UrlEnum;
+import com.tsien.vhr.constant.Const;
 import com.tsien.vhr.service.UserService;
 import org.springframework.security.config.annotation.ObjectPostProcessor;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -71,7 +71,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 })
                 .and()
                 .formLogin()
-                .loginProcessingUrl(UrlEnum.Login_Processing_Url.getUrl())
+                .loginProcessingUrl(Const.LOGIN_PROCESSING_URL)
                 .usernameParameter("username")
                 .passwordParameter("password")
                 .permitAll()

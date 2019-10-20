@@ -1,6 +1,6 @@
 package com.tsien.vhr.config;
 
-import com.tsien.vhr.constant.RoleEnum;
+import com.tsien.vhr.constant.Const;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.access.AccessDecisionManager;
 import org.springframework.security.access.AccessDeniedException;
@@ -43,7 +43,7 @@ public class UrlAccessDecisionManager implements AccessDecisionManager {
 
             // 获取当前请求需要的权限
             String needRole = configAttribute.getAttribute();
-            if (Objects.equals(RoleEnum.ROLE_LOGIN.getRoleName(), needRole)) {
+            if (Objects.equals(Const.ROLE_LOGIN, needRole)) {
                 if (authentication instanceof AnonymousAuthenticationToken) {
                     throw new BadCredentialsException("用户未登录");
                 } else {
