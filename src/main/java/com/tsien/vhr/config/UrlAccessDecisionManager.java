@@ -41,29 +41,30 @@ public class UrlAccessDecisionManager implements AccessDecisionManager {
 
         for (ConfigAttribute configAttribute : configAttributes) {
 
-            // 获取当前请求需要的权限
+            // 获取当前请求，哪几个角色可以访问（来源于UrlFilterInvocationSecurityMetadataSource），从数据库查询得到的
             String needRole = configAttribute.getAttribute();
             if (Objects.equals(Const.ROLE_LOGIN, needRole)) {
                 if (authentication instanceof AnonymousAuthenticationToken) {
                     throw new BadCredentialsException("用户未登录");
                 } else {
 
-                    // return的含义：不执行后续代码，跳出本次循环
+                    // return的含义：不执行后续代码，方法结束
                     return;
                 }
             }
 
-            // 当前用户具有的权限
+            // 用当前用户具有的权限，去比较访问的url需要的权限，只要匹配上一个，就跳出循环，认证通过
             Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
             for (GrantedAuthority authority : authorities) {
                 if (Objects.equals(authority.getAuthority(), needRole)) {
 
-                    // return的含义：不执行后续代码，跳出本次循环
+                    // return的含义：不执行后续代码，方法结束；
                     return;
                 }
             }
         }
 
+        // 如果前面一直未能匹配上，抛出权限不足异常
         throw new AccessDeniedException("权限不足");
     }
 

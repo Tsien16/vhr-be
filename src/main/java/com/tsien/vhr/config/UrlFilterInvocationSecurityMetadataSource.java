@@ -45,6 +45,7 @@ public class UrlFilterInvocationSecurityMetadataSource implements FilterInvocati
         // 获取请求的Url地址
         String requestUrl = ((FilterInvocation) object).getRequestUrl();
 
+        // 从数据库获取所有的资源，并且查询出每个资源关联了哪几个角色（即哪几个角色可访问）放在roles里
         List<com.tsien.vhr.model.Resource> resources = resourceService.listResources();
         for (com.tsien.vhr.model.Resource resource : resources) {
             if (antPathMatcher.match(resource.getResourceUrl(), requestUrl) && resource.getRoles().size() > 0) {
