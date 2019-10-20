@@ -9,12 +9,6 @@ package com.tsien.vhr.constant;
  */
 
 public enum UrlEnum {
-
-    /**
-     * 登录的URL地址
-     */
-    LOGIN_URL("/login_p"),
-
     /**
      * 登录地址
      */

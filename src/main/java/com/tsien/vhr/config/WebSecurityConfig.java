@@ -71,7 +71,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 })
                 .and()
                 .formLogin()
-                .loginPage(UrlEnum.LOGIN_URL.getUrl())
                 .loginProcessingUrl(UrlEnum.Login_Processing_Url.getUrl())
                 .usernameParameter("username")
                 .passwordParameter("password")

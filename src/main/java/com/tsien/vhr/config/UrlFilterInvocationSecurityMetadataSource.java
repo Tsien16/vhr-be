@@ -1,7 +1,6 @@
 package com.tsien.vhr.config;
 
 import com.tsien.vhr.constant.RoleEnum;
-import com.tsien.vhr.constant.UrlEnum;
 import com.tsien.vhr.model.Role;
 import com.tsien.vhr.service.ResourceService;
 import org.springframework.context.annotation.Configuration;
@@ -15,7 +14,6 @@ import org.springframework.util.AntPathMatcher;
 import javax.annotation.Resource;
 import java.util.Collection;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * Created with IntelliJ IDEA.
@@ -46,9 +44,6 @@ public class UrlFilterInvocationSecurityMetadataSource implements FilterInvocati
 
         // 获取请求的Url地址
         String requestUrl = ((FilterInvocation) object).getRequestUrl();
-        if (Objects.equals(UrlEnum.LOGIN_URL.getUrl(), requestUrl)) {
-            return null;
-        }
 
         List<com.tsien.vhr.model.Resource> resources = resourceService.listResources();
         for (com.tsien.vhr.model.Resource resource : resources) {

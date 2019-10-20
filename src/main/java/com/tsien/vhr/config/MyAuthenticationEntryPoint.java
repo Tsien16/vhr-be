@@ -2,9 +2,11 @@ package com.tsien.vhr.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tsien.vhr.util.ServerResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.InsufficientAuthenticationException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
@@ -24,6 +26,7 @@ import java.io.PrintWriter;
  * @date 2019/10/14 0014 3:02
  */
 
+@Slf4j
 @Configuration
 public class MyAuthenticationEntryPoint implements AuthenticationEntryPoint {
 
@@ -50,11 +53,15 @@ public class MyAuthenticationEntryPoint implements AuthenticationEntryPoint {
         PrintWriter printWriter = response.getWriter();
         String errorMsg = "";
 
+        // 用户未登录异常
+        if (authException instanceof BadCredentialsException) {
+            errorMsg = "请求失败，用户未登录！";
+        }
         // InsufficientAuthenticationException 认证信息不全异常
-        if (authException instanceof InsufficientAuthenticationException) {
-            errorMsg = "请求失败，请联系管理员";
+        else if (authException instanceof InsufficientAuthenticationException) {
+            errorMsg = "请求失败，身份认证异常！";
         } else {
-            errorMsg = "访问失败!";
+            errorMsg = "请求失败,异常信息：" + authException.toString();
         }
         response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
 
