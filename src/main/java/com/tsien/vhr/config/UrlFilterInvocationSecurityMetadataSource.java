@@ -3,6 +3,7 @@ package com.tsien.vhr.config;
 import com.tsien.vhr.constant.Const;
 import com.tsien.vhr.model.Role;
 import com.tsien.vhr.service.ResourceService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.access.SecurityConfig;
@@ -23,6 +24,7 @@ import java.util.List;
  * @date 2019/9/23 0023 16:49
  */
 
+@Slf4j
 @Configuration
 public class UrlFilterInvocationSecurityMetadataSource implements FilterInvocationSecurityMetadataSource {
 
